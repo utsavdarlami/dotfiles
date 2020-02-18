@@ -51,7 +51,7 @@ END {
 	}
 	# full text
 	# printf("%.1fG/%.1fG (%.f%%)\n", used, total, pct)
-	printf("💿️ %.1fG\n", used)
+	printf(" %.1fG\n", used)
 
 	# short text
 	# printf("%.f%%\n", pct)

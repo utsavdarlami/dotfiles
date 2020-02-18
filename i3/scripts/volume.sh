@@ -69,7 +69,9 @@ format() {
   perl_filter+=$([[ $STEP = *dB ]] && echo '$3' || echo '$1')
   perl_filter+='"; exit}'
   output=$(perl -ne "$perl_filter")
-  echo "$LABEL$output"
+  echo "$LABEL $output"
+  # echo "$output"
+
 }
 
 #------------------------------------------------------------------------
@@ -81,3 +83,4 @@ case $BLOCK_BUTTON in
 esac
 
 volume | format
+# echo $output
