@@ -19,6 +19,7 @@ set $mod Mod4
 for_window [class=".*"] border pixel 2
 
 gaps inner 5
+gaps outer 4
 
 # gaps config end
 
