@@ -21,6 +21,7 @@ for_window [class=".*"] border pixel 2
 gaps inner 5
 gaps outer 4
 
+
 # gaps config end
 
 title_align center
@@ -128,11 +129,18 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-set $myws1 "1:  Terminals"
-set $myws2 "2:  Editor"
-set $myws3 "3:  Web"
-set $myws4 "4:  Media"
-set $myws9 "9:  Music"
+set $myws1 "1:Terminals"
+set $myws2 "2:Editor"
+set $myws3 "3:Web"
+set $myws4 "4:Media"
+set $myws9 "9:Music"
+
+#2 set $myws1 "1:  Terminals"
+#2 set $myws2 "2:  Editor"
+#2 set $myws3 "3:  Web"
+#2 set $myws4 "4:  Media"
+#2 set $myws9 "9:  Music"
+
 
 # switch to workspace
 bindsym $mod+1 workspace number $myws1
@@ -230,23 +238,24 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 hide_edge_borders both
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3blocks -c ~/.config/i3/i3blocks.conf
-        colors {
-            background $bg-color
-            separator #757575
-                               # border             background         text
-            focused_workspace  $bg-color          $bg-color          $text-color
-            inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-            urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-        }
-        height 22
-		font pango:SourceSansPro-ExtraLight 9
+
+#bar {
+#        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#        colors {
+#           background $bg-color
+#            separator #757575
+#                               # border             background         text
+#            focused_workspace  $bg-color          $bg-color          $text-color
+#            inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#            urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#        }
+#        height 22
+#		font pango:SourceSansPro-ExtraLight 9
 
 		#position top
 	
 
-}
+# }
 
 # bindsym $mod+shift+x exec i3lock -i ~/Desktop/pralab/rtRyyrR.png  
 bindsym $mod+shift+x exec bash lock.sh
@@ -294,9 +303,11 @@ exec_always xrandr --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate no
 bindsym $mod+d exec rofi -show run 
 bindsym $mod+Shift+f exec --no-startup-id firefox
 
+
 bindsym $mod+e exec --no-startup-id thunar
 
 exec --no-startup-id picom -f
 exec --no-startup-id i3-msg workspace $myws1
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 
