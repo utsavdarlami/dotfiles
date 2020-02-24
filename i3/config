@@ -18,7 +18,7 @@ set $mod Mod4
 
 for_window [class=".*"] border pixel 2
 
-gaps inner 5
+gaps inner 6
 gaps outer 4
 
 
@@ -176,6 +176,7 @@ for_window [class="Code"] move to workspace $myws2 ;exec --no-startup-id i3-msg 
 for_window [class="Mousepad"] move to workspace $myws2 ;exec --no-startup-id i3-msg workspace $myws2
 
 
+for_window [class="vlc"] move to workspace $myws4 ;exec --no-startup-id i3-msg workspace $myws4
 
 for_window [class="Spotify"] move to workspace $myws9 ;exec --no-startup-id i3-msg workspace $myws9
 
@@ -292,9 +293,9 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN
 # exec_always firefox
 
 # exec_always feh --bg-scale /home/felladog/Pictures/Wallpaper/w1.jpg
-# exec_always feh --bg-scale /home/felladog/Pictures/Wallpaper/w6.png
+exec_always feh --bg-scale /home/felladog/Pictures/Wallpaper/wallace.png
 
-exec_always feh --randomize --bg-scale /home/felladog/Pictures/Wallpaper
+# exec_always feh --randomize --bg-scale /home/felladog/Pictures/Wallpaper
 exec_always xrandr --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI1 --off --output VIRTUAL1 --off
 
 
@@ -307,7 +308,7 @@ bindsym $mod+Shift+f exec --no-startup-id firefox
 bindsym $mod+e exec --no-startup-id thunar
 
 exec --no-startup-id picom -f
-exec --no-startup-id i3-msg workspace $myws1
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id i3-msg workspace $myws1
 

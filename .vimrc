@@ -61,6 +61,7 @@ endif
 
 " Now the actual plugins:
 " Plug 'patstockwell/vim-monokai-tasty'
+Plug 'joshdick/onedark.vim' 
 Plug 'gilgigilgil/anderson.vim'
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
@@ -128,12 +129,14 @@ Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/YankRing.vim'
 " Linters
 Plug 'neomake/neomake'
+
 " Relative numbering of lines (0 is the current line)
 " (disabled by default because is very intrusive and can't be easily toggled
 " on/off. When the plugin is present, will always activate the relative
 " numbering every time you go to normal mode. Author refuses to add a setting
 " to avoid that)
 Plug 'myusuf3/numbers.vim'
+
 " Nice icons in the file explorer and file type status line.
 Plug 'ryanoasis/vim-devicons'
 
@@ -224,8 +227,10 @@ if has('gui_running') || using_neovim || (&term =~? 'mlterm\|xterm\|xterm-256\|s
     endif
     colorscheme anderson
 else
-    colorscheme delek
+    colorscheme anderson
 endif
+
+
 
 " needed so deoplete can auto select the first suggestion
 set completeopt+=noinsert
@@ -463,6 +468,12 @@ endif
 
 " my changes
 
+colorscheme  onedark
+if (has("termguicolors"))
+      set termguicolors
+endif
+"Transparency Vim 
+hi! Normal guibg=NONE ctermbg=NONE
 
 let mapleader=','
 
@@ -472,3 +483,4 @@ noremap <leader>nt :NERDTree<CR>
 
 "copy to clipboard
 vnoremap <C-c> "+y 
+
