@@ -84,6 +84,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
+" Markdown 
+Plug 'godlygeek/tabular'
+Plug 'vimwiki/vimwiki'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Async autocompletion
 if using_neovim && vim_plug_just_installed
     Plug 'Shougo/deoplete.nvim', {'do': ':autocmd VimEnter * UpdateRemotePlugins'}
@@ -316,7 +320,8 @@ autocmd BufEnter * call NERDTreeRefresh()
 " Tasklist ------------------------------
 
 " show pending tasks list
-map <F2> :TaskList<CR>
+" map <F2> :TaskList<CR>
+set pastetoggle=<F2>
 
 " Neomake ------------------------------
 
@@ -369,7 +374,7 @@ let g:context_filetype#same_filetypes._ = '_'
 
 " Disable autocompletion (using deoplete instead)
 let g:jedi#completions_enabled = 0
-
+let g:jedi#use_tabs_not_buffers = 1
 " All these mappings work only for python code:
 " Go to definition
 let g:jedi#goto_command = ',d'
@@ -377,6 +382,8 @@ let g:jedi#goto_command = ',d'
 let g:jedi#usages_command = ',o'
 " Find assignments
 let g:jedi#goto_assignments_command = ',a'
+" Function show args that is show call signatures
+let g:jedi#show_call_signatures = "2"
 " Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
@@ -472,9 +479,7 @@ colorscheme  onedark
 if (has("termguicolors"))
       set termguicolors
 endif
-"Transparency Vim 
-hi! Normal guibg=NONE ctermbg=NONE
-
+hi Normal guibg=NONE ctermbg=NONE
 let mapleader=','
 
 noremap <Leader>w :w<CR>
@@ -484,3 +489,15 @@ noremap <leader>nt :NERDTree<CR>
 "copy to clipboard
 vnoremap <C-c> "+y 
 
+"-- FOLDING --
+set foldmethod=indent "syntax highlighting items specify folds
+" set foldcolumn=1 "defines 1 col at window left, to indicate folding
+let javaScript_fold=1 "activate folding by JS syntax
+let python_fold=1
+set foldlevelstart=99 "start file with all folds opened
+"-- VIM Markdown - -
+let g:vimwiki_list = [{'path': '~/Desktop/Notes/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:mkdp_echo_preview_url = 1
+noremap <Leader>mp :MarkdownPreview<CR>

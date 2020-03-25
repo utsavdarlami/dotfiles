@@ -3,7 +3,7 @@
 ## Created By Aditya Shakya
 
 #MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 5 -xoffset -14 -yoffset -52 -width 10 -hide-scrollbar -line-padding 4 -padding 20 -lines 4 <<< " Lock| Logout| Reboot| Shutdown")"
-MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 7 -xoffset 7 -yoffset -35 -width 10 -hide-scrollbar -line-padding 2 -padding 17 -lines 4 <<< " Lock| Logout| Reboot| Shutdown")"
+MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 5 -xoffset -5 -yoffset -32 -width 10 -hide-scrollbar -line-padding 2 -padding 17 -lines 4 <<< " Lock| Logout| Reboot| Shutdown")"
             case "$MENU" in
                 *Lock) i3lock-fancy ;;
                 *Logout) i3-msg exit;;

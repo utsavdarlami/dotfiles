@@ -10,7 +10,9 @@ export ZSH="/home/felladog/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 ZSH_THEME="hyperzsh"
-# ZSH_THEME="oxide"
+
+#ZSH_THEME="spaceship"
+ #ZSH_THEME="oxide"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -103,10 +105,13 @@ alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
 alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
-
+# alias vim='nvim'
 # don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias mynote='vim ~/Desktop/Notes/index.md'
 
 
 neofetch
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
