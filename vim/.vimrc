@@ -258,7 +258,7 @@ map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
 
 " when scrolling, keep cursor 3 lines away from screen border
-set scrolloff=3
+set scrolloff=5
 
 " clear search results
 nnoremap <silent> // :noh<CR>
@@ -484,7 +484,6 @@ let mapleader=','
 
 noremap <Leader>w :w<CR>
 noremap <leader>q :q<CR>
-noremap <leader>nt :NERDTree<CR>
 
 "copy to clipboard
 vnoremap <C-c> "+y 

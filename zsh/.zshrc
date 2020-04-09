@@ -110,8 +110,7 @@ alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias mynote='vim ~/Desktop/Notes/index.md'
-
+export PATH="$HOME/.cargo/bin:$PATH"
 
 neofetch
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
