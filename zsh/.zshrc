@@ -105,7 +105,7 @@ alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
 alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
-# alias vim='nvim'
+alias vim='nvim'
 # don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
