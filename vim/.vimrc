@@ -19,11 +19,13 @@ let using_vim = !using_neovim
 " Avoid modifying this section, unless you are very sure of what you are doing
 
 let vim_plug_just_installed = 0
+
 if using_neovim
     let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
 else
     let vim_plug_path = expand('~/.vim/autoload/plug.vim')
 endif
+
 if !filereadable(vim_plug_path)
     echo "Installing Vim-plug..."
     echo ""
@@ -62,7 +64,7 @@ endif
 " Now the actual plugins:
 " Plug 'patstockwell/vim-monokai-tasty'
 Plug 'joshdick/onedark.vim' 
-Plug 'gilgigilgil/anderson.vim'
+" Plug 'gilgigilgil/anderson.vim'
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
 " Code commenter
@@ -75,6 +77,7 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/IndexedSearch'
 " A couple of nice colorschemes
 " Plug 'fisadev/fisa-vim-colorscheme'
+Plug 'arcticicestudio/nord-vim'
 Plug 'patstockwell/vim-monokai-tasty'
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -150,7 +153,9 @@ if using_vim
     " XML/HTML tags navigation (neovim has its own)
     Plug 'vim-scripts/matchit.zip'
 endif
-
+" https://github.com/sakhnik/nvim-gdb
+" Gdb, LLDB, PDB and BASHDB integration with NeoVim.
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " Code searcher. If you enable it, you should also configure g:hound_base_url 
 " and g:hound_port, pointing to your hound instance
 " Plug 'mattn/webapi-vim'
@@ -223,18 +228,6 @@ set nu
 
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
-
-" use 256 colors when possible
-if has('gui_running') || using_neovim || (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256')
-    if !has('gui_running')
-        let &t_Co = 256
-    endif
-    colorscheme anderson
-else
-    colorscheme anderson
-endif
-
-
 
 " needed so deoplete can auto select the first suggestion
 set completeopt+=noinsert
@@ -437,7 +430,7 @@ endif
 
 " Airline ------------------------------
 
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
@@ -476,6 +469,7 @@ endif
 " my changes
 
 colorscheme  onedark
+"colorscheme nord
 if (has("termguicolors"))
       set termguicolors
 endif
@@ -500,3 +494,5 @@ let g:vimwiki_list = [{'path': '~/Desktop/Notes/',
 
 let g:mkdp_echo_preview_url = 1
 noremap <Leader>mp :MarkdownPreview<CR>
+set guicursor=n-v-c:ver20-Cursor/lCursor,i-ci:ver20-Cursor/lCursor,r-cr:ver20-Cursor/lCursor
+" _--STATUS LIne  -- - -
