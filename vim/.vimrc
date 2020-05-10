@@ -1,4 +1,4 @@
-" .vimrc
+" .rvimrc
 " http://vim.fisadev.com
 " version: 12.0.0
 
@@ -136,6 +136,8 @@ Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/YankRing.vim'
 " Linters
 Plug 'neomake/neomake'
+"provides support for writing LaTeX documents.  
+Plug 'lervag/vimtex'
 
 " Relative numbering of lines (0 is the current line)
 " (disabled by default because is very intrusive and can't be easily toggled
@@ -358,7 +360,8 @@ nmap ,c :Commands<CR>
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
+"let g:deoplete#enable_smart_case = 1
+call deoplete#custom#buffer_filter('smart_case',v:true)
 " complete with words from any opened file
 let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
