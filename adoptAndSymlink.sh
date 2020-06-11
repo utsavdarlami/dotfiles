@@ -1,10 +1,10 @@
 # !/bin/bash
 
-dirlist='bash i3 lock neofetch polybar rofi vim zsh mpd ncmpcpp kitty'
+dirlist='bash i3 lock screen neofetch polybar rofi vim zsh mpd ncmpcpp alacritty'
 echo $dirlist
 
-#stow --adopt -nvt ~ $dirlist
 stow --adopt -vt ~ $dirlist
+#stow --adopt -vt ~ $dirlist
 
 
 

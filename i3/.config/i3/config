@@ -52,7 +52,8 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
 
-bindsym $mod+Return exec kitty 
+#bindsym $mod+Return exec kitty 
+bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -198,16 +199,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -272,18 +273,10 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
-# Use pactl to adjust volume in PulseAudio.
-#set $refresh_i3status killall -SIGUSR1 i3status
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 # change volume or toggle mute
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
-
 
 
 # always
@@ -294,19 +287,19 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN
 exec_always feh --bg-scale ~/Pictures/Wallpaper/wallace.png
 
 # exec_always feh --randomize --bg-scale /home/felladog/Pictures/Wallpaper
-exec_always xrandr --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI1 --off --output VIRTUAL1 --off
-
+exec_always xrandr --output eDP1 --auto --mode 1366x768 normal --output HDMI1 --auto 
 
 # key bindings 
 
 bindsym $mod+o exec rofi -show run
 bindsym $mod+p exec rofi -show drun
-
 bindsym $mod+Shift+f exec --no-startup-id firefox
-
 bindsym $mod+e exec --no-startup-id thunar
-
+#bindsym $mod+shift+x exec bash lock.sh
+bindsym $mod+Shift+p exec bash screen.sh 
 exec --no-startup-id picom -f
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#exec_always --no-startup-id ~/.config/polybar/launch_multimonitor.sh &
 exec --no-startup-id i3-msg workspace $myws1
+# exec_always ~/.screenlayout/okay.sh

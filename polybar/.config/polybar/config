@@ -47,7 +47,8 @@ include-file = ~/.config/polybar/modules.ini
 
 [bar/bottomleft]
 ; monitor = ${env:MONITOR:HDMI-A-1}
-monitor = 
+;monitor = ${env:MONITOR1}
+; Tray
 
 bottom = true
 
@@ -87,6 +88,7 @@ modules-right =battery_bar pulseaudio memory date sysmenu
 
 
 tray-position = right
+;tray-position = ${env:TRAY_POSITION:right}
 tray-padding = 0
 tray-detached = false
 tray-maxsize = 19
@@ -152,12 +154,8 @@ modules-left =
 modules-center = memory
 modules-right = 
 
-
-
 wm-restack = i3
 override-redirect = true
-
-
 
 ;click-left = mpc toggle
 ;scroll-up = 
@@ -174,7 +172,9 @@ override-redirect = true
 
 ;pulseaudio date
 [bar/bottomright]
-; monitor = ${env:MONITOR:HDMI-A-1}
+;monitor = ${env:MONITOR2}
+;monitor = ${env:MONITOR:HDMI-A-1}
+;tray-position = ${env:TRAY_POSITION:right}
 monitor = 
 monitor-fallback =
 

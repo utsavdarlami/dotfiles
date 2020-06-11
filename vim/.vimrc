@@ -2,11 +2,6 @@
 " http://vim.fisadev.com
 " version: 12.0.0
 
-" To use fancy symbols wherever possible, change this setting from 0 to 1
-" and use a font from https://github.com/ryanoasis/nerd-fonts in your terminal 
-" (if you aren't using one of those fonts, you will see funny characters here. 
-" Turst me, they look nice when using one of those fonts).
-
 let fancy_symbols_enabled = 0
 set encoding=utf-8
 let using_neovim = has('nvim')
@@ -244,10 +239,10 @@ ca w!! w !sudo tee "%"
 
 " tab navigation mappings
 map tt :tabnew 
-map <M-Right> :tabn<CR>
-imap <M-Right> <ESC>:tabn<CR>
-map <M-Left> :tabp<CR>
-imap <M-Left> <ESC>:tabp<CR>
+map <M-l> :tabn<CR>
+"imap <M-Right> <ESC>:tabn<CR>
+map <M-h> :tabp<CR>
+" imap <M-Left> <ESC>:tabp<CR>
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=5
@@ -351,6 +346,8 @@ nmap ,F :Lines<CR>
 nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 " commands finder mapping
 nmap ,c :Commands<CR>
+" Command history
+nmap ,h :History:<CR>
 
 " Deoplete -----------------------------
 
@@ -457,13 +454,7 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-"    let g:airline_left_sep = ''
-"    let g:airline_left_alt_sep = ''
-"    let g:airline_right_sep = ''
-"    let g:airline_right_alt_sep = ''
-"    let g:airline_symbols.branch = '⭠'
-"    let g:airline_symbols.readonly = '⭤'
-"    let g:airline_symbols.linenr = '⭡'
+
 else
     let g:webdevicons_enable = 0
 endif
@@ -480,7 +471,7 @@ if filereadable(expand(custom_configs_path))
   execute "source " . custom_configs_path
 endif
 
-" my changes
+" ----------------------------- MY CHANGES -----------------------------
 
 if (empty($TMUX))
     if (has("nvim"))
@@ -523,4 +514,9 @@ set guicursor=n-v-c:ver20-Cursor/lCursor,i-ci:ver20-Cursor/lCursor,r-cr:ver20-Cu
 "
 "tab spaces
 set tabstop=4
+"set tabline=
 
+nnoremap <silent> <F11> :YRShow<CR>
+"Neomake 
+map <M-j> :lnext<CR>
+map <M-k> :lprev<CR>
