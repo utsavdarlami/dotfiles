@@ -1,8 +1,8 @@
 rofi.lines: 3
 rofi.eh: 2
-rofi.padding: 400
+rofi.padding: 500
 rofi.width: 100
-! rofi.fullscreen: true
+! rofi.fullscreenr true
 rofi.bw: 0
 rofi.separator-style: none
 rofi.hide-scrollbar: true
@@ -11,7 +11,7 @@ rofi.show-match : false
 !                  'background', 'border', 'separator'
 rofi.color-window: argb:D92f343f
 
-! State:           'bg',         'fg',     'bgalt',    'hlbg -highlightbg',   'hlfg'
+l;State:           'bg',         'fg',     'bgalt',    'hlbg -highlightbg',   'hlfg'
 rofi.color-normal: argb:002f343f, #c4cbd4, argb:002f343f, argb:002f343f, 	#abf5f3
 rofi.color-urgent: argb:002f343f, #c4cbd4, argb:002f343f, argb:D92f343f, 	#abf5f3
 rofi.color-active: argb:002f343f, #c4cbd4, argb:002f343f, argb:D92f343f, 	#abf5f3

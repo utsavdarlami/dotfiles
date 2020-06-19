@@ -36,72 +36,59 @@ bd = #e53935
 
 [global/wm]
 
-
 include-file = ~/.config/polybar/modules.ini
+margin-top = 0
+margin-bottom = 0
 
-; --------------  LEFT ------------------
-; --------------  LEFT ------------------
-; --------------  LEFT ------------------
-; --------------  LEFT ------------------
 ; --------------  LEFT ------------------
 
 [bar/bottomleft]
 ; monitor = ${env:MONITOR:HDMI-A-1}
 ;monitor = ${env:MONITOR1}
 ; Tray
+;
+bottom  = True
 
-bottom = true
+line-size = 0
+line-color = 
 
-width = 100%
-height = 25
+border-size           = 0
+border-color          = #00000000 
+
+width = 28%
+height = 27
+offset-x = 3
+offset-y = 3
+
+border-right-size = 0
+border-left-size = 2
+
+font-0 = Hasklig:style=Regular:pixelsize=10;1
+font-1 = FontAwesome:size:10
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;0
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;0
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;0
+font-5 = "icomoon\-feather:size=9;2"
+
 radius = 2.0
-fixed-center = false
-offset-x = 
+fixed-center = true 
 background = ${colors.background}
 foreground = ${colors.foreground}
-
-line-size = 1
-line-color = #f00
-
-border-top-size = 3
-border-bottom-size = 3
-border-left-size = 7
-border-right-size = 7
-border-color = #00000000
-
 padding-left = 1
 padding-right = 1
 
 module-margin-left = 1
-module-margin-right = 0
+module-margin-right = 1
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
-font-5 = "icomoon\-feather:size=9;2"
+modules-left = sysmenu pulseaudio
+modules-center = mpd 
+modules-right = 
 
-modules-left = i3
-modules-center = 
-modules-right =battery_bar pulseaudio memory date sysmenu
-
-
-tray-position = right
-;tray-position = ${env:TRAY_POSITION:right}
-tray-padding = 0
-tray-detached = false
-tray-maxsize = 19
-
-true tray-background = #0063ff
-tray-offset-x = 0
-tray-offset-y = 0
-tray-reparent = true
-
-wm-restack = i3
+;wm-restack = i3
+;
 ;override-redirect = true
 
-
+scroll-up = pactl set-sink-volume 0 +2% 
 
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
@@ -112,57 +99,56 @@ wm-restack = i3
 ; --------------  MIDDLE ------------------
 ; --------------  MIDDLE ------------------
 ; --------------  MIDDLE ------------------
-; --------------  MIDDLE ------------------
-; --------------  MIDDLE ------------------
 
 [bar/bottommiddle]
 ; monitor = ${env:MONITOR:HDMI-A-1}
-monitor = 
-monitor-fallback =
+;monitor = 
+bottom  = True
 
-bottom = true
-width = 15%
-height = 25
-radius = 4.0
-fixed-center = false
-offset-x = 500
+line-size = 0
+line-color = 
+
+width = 20%
+height = 27
+radius = 2.0
+fixed-center = true 
+offset-x = 40% 
+offset-y = 3 
+
+border-size           = 0
+border-color          = #00000000 
 background = ${colors.background}
-foreground = ${colors.foreground}
 
-line-size = 2
-line-color = #f00
+border-bottom-size = 0
+border-right-size = 0
 
-border-top-size = 3
-border-bottom-size = 3
-border-left-size = 1
-border-right-size = 1
-border-color = #00000000
 
 padding-left = 0
 padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
+
 
 font-0 = Hasklig:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;0
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;0
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;0
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
+font-5 = "icomoon\-feather:size=9;2"
 
 modules-left =
-modules-center = memory
+modules-center = bspwm 
 modules-right = 
 
-wm-restack = i3
-override-redirect = true
 
-;click-left = mpc toggle
 ;scroll-up = 
 ;scroll-down = 
 ;cursor-click = 
 ;cursor-scroll = ns-resize
 
+;wm-restack = i3
+;override-redirect = true
 
 ; --------------  Right ---------------------------
 ; --------------  Right ---------------------------
@@ -175,51 +161,61 @@ override-redirect = true
 ;monitor = ${env:MONITOR2}
 ;monitor = ${env:MONITOR:HDMI-A-1}
 ;tray-position = ${env:TRAY_POSITION:right}
-monitor = 
-monitor-fallback =
+;monitor = 
+;monitor-fallback =
 
-bottom = true
+;monitor-fallback =
+;
+bottom  = True
+
+border-size           = 0
+border-color          = #00000000 
 
 width = 35%
-height = 25
-radius = 4.0
-fixed-center = false
-offset-x = 885
+height = 27
+
+
+fixed-center = true 
+offset-x = 885 
+offset-y = 3
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 1
-line-color = #f00
-
-border-top-size = 3
-border-bottom-size = 3
-border-left-size = 1
-border-right-size = 5
-border-color = #00000000
+line-size = 0
+line-color = 
 
 padding-left = 1
 padding-right = 1
 
-module-margin-left = 1
+module-margin-left = 0
 module-margin-right = 1
 
-font-0 = Hasklig:style=Regular:pixelsize=10;2
+font-0 = Hasklig:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:size:10
 font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
 font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
 font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
-
-
+font-5 = "icomoon\-feather:size=9;2"
 
 modules-left = 
-modules-center = 
-modules-right =pulseaudio date
+modules-center = battery_bar memory date
+modules-right = 
 
-wm-restack = i3
-override-redirect = true
+tray-position = right
+;tray-position = ${env:TRAY_POSITION:right}
+tray-padding = 0
+tray-detached = false
+tray-maxsize = 19
 
+true tray-background = #0063ff
+tray-offset-x = 0
+tray-offset-y = 0
+tray-reparent = true
 
-scroll-up = pactl set-sink-volume 0 +2% 
+;wm-restack = i3
+;override-redirect = true
+
 ;scroll-down = 
 ;cursor-click = pointer
 ;cursor-scroll = ns-resize
@@ -227,6 +223,7 @@ scroll-up = pactl set-sink-volume 0 +2%
 
 
 [module/i3]
+
 type = internal/i3
 format = <label-mode> <label-state>
 index-sort = true
@@ -236,14 +233,13 @@ wrapping-scroll = false
 
 pin-workspaces = true
 
-
 fuzzy-match = true
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
-ws-icon-4 = 5;
+ws-icon-4 = 5;
 ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
@@ -258,9 +254,8 @@ label-mode-background = ${colors.primary}
 label-focused = %icon%
 ;label-focused-background = ${colors.background-alt}
 label-focused-background = #2f343f
-label-focused-underline = #fba922
 label-focused-foreground = #fef0ff
-;label-focused-underline=
+label-focused-underline= #676E7D
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
@@ -286,11 +281,20 @@ label-urgent-padding = 2
 [module/bspwm]
 type = internal/bspwm
 
+format = <label-mode> <label-state>
+index-sort = true
+wrapping-scroll = false
+
+pin-workspaces = true
+
+fuzzy-match = true
+
+
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
-ws-icon-4 = 5;
+ws-icon-4 = 5;
 ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
@@ -301,19 +305,19 @@ label-mode-padding = 0
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
-label-focused = %index%
+label-focused = %icon%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = %index%
+label-occupied = %icon%
 label-occupied-padding = 2
 
-label-urgent = %index%!
+label-urgent = %icon%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %index%
+label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
@@ -327,7 +331,7 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
+pseudo-transparency = true
 
 
 

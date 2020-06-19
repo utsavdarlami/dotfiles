@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 
-#border_radius 3
+# border_radius 3
 # gaps Config
 
 for_window [class=".*"] border pixel 1
@@ -303,3 +303,4 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #exec_always --no-startup-id ~/.config/polybar/launch_multimonitor.sh &
 exec --no-startup-id i3-msg workspace $myws1
 # exec_always ~/.screenlayout/okay.sh
+# exec --no-startup-id  mpd

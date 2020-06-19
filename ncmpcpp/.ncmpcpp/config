@@ -56,10 +56,11 @@ now_playing_suffix = "$8$/b"
 #now_playing_prefix = "$u$2"
 #now_playing_suffix = "$2$/u$2"
 
-song_columns_list_format = "(6)[]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+#artist_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
 
-color1 = "white"
-color2 = "black"
+color1 = "cyan"
+color2 = "magenta" 
 
 song_list_format = " $5%l  $7%t $R$5%a "
 

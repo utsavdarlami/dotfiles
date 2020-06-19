@@ -1,10 +1,29 @@
 # !/bin/bash
 
-dirlist='bash i3 lock screen neofetch polybar rofi vim zsh mpd ncmpcpp alacritty'
+dirlist="
+            alacritty 
+            bash 
+            bspwm 
+            i3 
+            lock 
+            mpd 
+            ncmpcpp 
+            neofetch 
+            picom
+            polybar 
+            rofi 
+            screen 
+            sxhkd 
+            vim 
+            zsh 
+        "
 echo $dirlist
 
+# -nvt for simulation ,, to check if everythings is safely linked
+#stow --adopt -nvt ~ $dirlist
+
+# -vt for actual linking
 stow --adopt -vt ~ $dirlist
-#stow --adopt -vt ~ $dirlist
 
 
 
