@@ -2,15 +2,18 @@
 
 - **Save your config before trying**
 - Need
-
-  - i3
+  - zsh
+  - bspwm [current WM]
+  - [alacritty](https://github.com/alacritty/alacritty) [current Terminal Emulator]
   - neofetch
   - polybar
-  - rofi
   - vim
+  - neovim
+  - i3
+  - rofi
   - xfce4-terminal
-  - zsh
   - mononoki regualr font
+  - ncmpcpp
 
 - Install [stow](https://www.gnu.org/software/stow/manual/stow.html#Introduction)
 
@@ -22,6 +25,13 @@
 
 ## ScreenShot
 
+
+- June 24 2020 [latest]
+  
+    <img src="screenshots/24june1.png">
+    
+    <img src="screenshots/24june2.png">
+    
 - Feb 24 2020 [latest]
     <img src="screenshots/24feb.png">
 

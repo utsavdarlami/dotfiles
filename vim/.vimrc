@@ -144,6 +144,11 @@ Plug 'ryanoasis/vim-devicons'
 
 " for rust pulgin
 Plug 'rust-lang/rust.vim'
+" language client
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 if using_vim
     " Consoles as buffers (neovim has its own consoles as buffers)
@@ -330,9 +335,11 @@ let g:neomake_virtualtext_current_error = 0
 " Fzf ------------------------------
 
 " file finder mapping
-nmap ,e :Files<CR>
+nmap ,f :Files<CR>
+" git file finder mapping
+nmap ,g :Files<CR>
 " tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
+nmap ,e :BTag<CR>
 " the same, but with the word under the cursor pre filled
 nmap ,wg :execute ":BTag " . expand('<cword>')<CR>
 " tags (symbols) in all files finder mapping
@@ -340,11 +347,11 @@ nmap ,G :Tags<CR>
 " the same, but with the word under the cursor pre filled
 nmap ,wG :execute ":Tags " . expand('<cword>')<CR>
 " general code finder in current file mapping
-nmap ,f :BLines<CR>
+nmap ,F :BLines<CR>
 " the same, but with the word under the cursor pre filled
 nmap ,wf :execute ":BLines " . expand('<cword>')<CR>
 " general code finder in all files mapping
-nmap ,F :Lines<CR>
+nmap ,l :Lines<CR>
 " the same, but with the word under the cursor pre filled
 nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 " commands finder mapping
@@ -475,6 +482,15 @@ if filereadable(expand(custom_configs_path))
 endif
 
 " ----------------------------- MY CHANGES -----------------------------
+"
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 if (empty($TMUX))
     if (has("nvim"))
@@ -509,6 +525,19 @@ set foldlevelstart=99 "start file with all folds opened
 "-- VIM Markdown - -
 let g:vimwiki_list = [{'path': '~/Desktop/Notes/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false
+    \ }
 
 let g:mkdp_echo_preview_url = 1
 noremap <Leader>mp :MarkdownPreview<CR>
