@@ -164,6 +164,6 @@ super + P
 alt + Tab 
     rofi -show window
 # ScreenShot
-ctrl + P
+ctrl + alt + P
     bash screen.sh 
 

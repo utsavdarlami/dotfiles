@@ -79,7 +79,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Pending tasks list
-Plug 'fisadev/FixedTaskList.vim'
+" Plug 'fisadev/FixedTaskList.vim'
 " Markdown 
 Plug 'godlygeek/tabular'
 Plug 'vimwiki/vimwiki'
@@ -90,6 +90,11 @@ if using_neovim && vim_plug_just_installed
 else
     Plug 'Shougo/deoplete.nvim'
 endif
+
+"Pipenv
+Plug 'plytophogy/vim-virtualenv'
+Plug 'PieterjanMontens/vim-pipenv'
+
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 " Python autocompletion
@@ -146,9 +151,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'rust-lang/rust.vim'
 " language client
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 
 if using_vim
     " Consoles as buffers (neovim has its own consoles as buffers)
@@ -163,6 +168,8 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " and g:hound_port, pointing to your hound instance
 " Plug 'mattn/webapi-vim'
 " Plug 'jfo/hound.vim'
+" startufy the fancy start  screen for vim
+Plug 'mhinz/vim-startify'
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -178,7 +185,7 @@ endif
 " ============================================================================
 " Vim settings and mappings
 " You can edit them as you wish
- 
+
 if using_vim
     " A bunch of things that are set by default in neovim, but not in vim
     " no vi-compatible
@@ -231,8 +238,8 @@ set nu
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
 
-" needed so deoplete can auto select the first suggestion
-set completeopt+=noinsert
+" needed so deoplete call auto select the first suggestion
+set completeopt-=noinsert
 " comment this line to enable autocompletion preview window
 " (displays documentation related to the selected completion option)
 " disabled by default because preview makes the window flicker
@@ -316,6 +323,7 @@ autocmd BufEnter * call NERDTreeRefresh()
 
 " show pending tasks list
 " map <F2> :TaskList<CR>
+
 set pastetoggle=<F2>
 
 " Neomake ------------------------------
@@ -448,21 +456,21 @@ if fancy_symbols_enabled
 
     " custom airline symbols
     if !exists('g:airline_symbols')
-       let g:airline_symbols = {}
+        let g:airline_symbols = {}
     endif
     " unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_left_sep = '»'
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '«'
+    let g:airline_right_sep = '◀'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'Þ'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.whitespace = 'Ξ'
 
 
 else
@@ -478,7 +486,7 @@ else
     let custom_configs_path = "~/.vim/custom.vim"
 endif
 if filereadable(expand(custom_configs_path))
-  execute "source " . custom_configs_path
+    execute "source " . custom_configs_path
 endif
 
 " ----------------------------- MY CHANGES -----------------------------
@@ -486,9 +494,9 @@ endif
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ }
+           \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+           \ }
+let g:LanguageClient_diagnosticsEnable = 0
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
@@ -523,32 +531,46 @@ let javaScript_fold=1 "activate folding by JS syntax
 let python_fold=1
 set foldlevelstart=99 "start file with all folds opened
 "-- VIM Markdown - -
-let g:vimwiki_list = [{'path': '~/Desktop/Notes/',
-            \ 'syntax': 'markdown', 'ext': '.md'}]
+            "\ 'path': '~/Desktop/Notes/',
+            "\ 'custom_wiki2html': '$HOME/Desktop/Workspace/dotfiles/wiki2html.sh',
+let g:vimwiki_list = [{
+            \ 'auto_export': 1,
+            \ 'automatic_nested_syntaxes':1,
+            \ 'path_html': '$HOME/Documents/vimwiki/_site',
+            \ 'path': '$HOME/Documents/vimwiki/content',
+            \ 'template_path': '$HOME/Documents/vimwiki/templates/',
+            \ 'syntax': 'markdown',
+            \ 'ext': '.md',
+            \ 'template_default':'markdown',
+            \ 'custom_wiki2html': '$HOME/Documents/vimwiki/wiki2html.sh',
+            \ 'template_ext':'.html'
+            \}]
 
 let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1,
-    \ 'sequence_diagrams': {},
-    \ 'flowchart_diagrams': {},
-    \ 'content_editable': v:false
-    \ }
+            \ 'mkit': {},
+            \ 'katex': {},
+            \ 'uml': {},
+            \ 'maid': {},
+            \ 'disable_sync_scroll': 0,
+            \ 'sync_scroll_type': 'middle',
+            \ 'hide_yaml_meta': 1,
+            \ 'sequence_diagrams': {},
+            \ 'flowchart_diagrams': {},
+            \ 'content_editable': v:false
+            \ }
 
 let g:mkdp_echo_preview_url = 1
 noremap <Leader>mp :MarkdownPreview<CR>
 set guicursor=n-v-c:ver20-Cursor/lCursor,i-ci:ver20-Cursor/lCursor,r-cr:ver20-Cursor/lCursor
 " _--STATUS LIne  -- - -
 "
-"tab spaces
-set tabstop=4
-"set tabline=
 
 nnoremap <silent> <F11> :YRShow<CR>
 "Neomake 
 map <M-j> :lnext<CR>
 map <M-k> :lprev<CR>
+map <M-o> :lopen<CR>
+
+
+" startify_bookmarks
+let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z':'~/.zshrc'} ,{'c':"~/.config/"}]

@@ -108,10 +108,12 @@ alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
 alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
 alias music='tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"' # Tmux session with ncmpcpp and cover art
+alias dual_monitor="bash ~/.screenlayout/fine.sh"
+alias single_monitor="bash ~/.screenlayout/single.sh"
+alias dotfiles="cd ~/Desktop/Workspace/dotfiles"
 # don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias mynote='vim ~/Desktop/Notes/index.md'
 export PATH="$HOME/.cargo/bin:$PATH"
 
 autoload -Uz compinit
