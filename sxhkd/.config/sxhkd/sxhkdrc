@@ -167,3 +167,6 @@ alt + Tab
 ctrl + alt + P
     bash screen.sh 
 
+super + shift + x
+    bash lock.sh
+

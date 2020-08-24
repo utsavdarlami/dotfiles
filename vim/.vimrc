@@ -55,8 +55,11 @@ else
 endif
 
 " Now the actual plugins:
+" A couple of nice colorschemes
+" Plug 'fisadev/fisa-vim-colorscheme'
 " Plug 'patstockwell/vim-monokai-tasty'
 Plug 'joshdick/onedark.vim' 
+Plug 'arcticicestudio/nord-vim'
 " Plug 'gilgigilgil/anderson.vim'
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
@@ -68,10 +71,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
-" A couple of nice colorschemes
-" Plug 'fisadev/fisa-vim-colorscheme'
-Plug 'arcticicestudio/nord-vim'
-Plug 'patstockwell/vim-monokai-tasty'
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -573,4 +572,14 @@ map <M-o> :lopen<CR>
 
 
 " startify_bookmarks
-let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z':'~/.zshrc'} ,{'c':"~/.config/"}]
+let g:startify_bookmarks = [ 
+                    \ {'v': '~/.vimrc'},
+                    \ {'z':'~/.zshrc'} ,
+                    \ {'c':"~/.config/"},
+                    \ {'n': "~/Documents/vimwiki/content/Cornell_Notes_Taking.md"}
+                    \ ]
+
+nnoremap <silent> <F6> :Startify<CR>
+" end startify
+let g:tex_flavor = 'latex'
+
