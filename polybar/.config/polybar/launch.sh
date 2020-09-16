@@ -13,6 +13,5 @@ polybar bottommiddle &
 
 polybar bottomright;
 
-
 echo Polybar launched...
 

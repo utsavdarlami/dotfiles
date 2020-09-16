@@ -4,6 +4,7 @@ sxhkd &
 picom -f & 
 nm-applet &
 mpd &
+xinput disable 14 &
 
 feh --bg-scale ~/Pictures/Wallpaper/wallace.png &
 # Launch polybar

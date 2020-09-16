@@ -23,6 +23,9 @@
   $ bash adoptAndSymlink.sh
 ```
 
+- Rofi menu and applets installation :
+    - https://github.com/adi1090x/rofi#installation
+
 ## ScreenShot
 
 
@@ -32,7 +35,7 @@
     
     <img src="screenshots/24june2.png">
     
-- Feb 24 2020 [latest]
+- Feb 24 2020 
     <img src="screenshots/24feb.png">
 
 - Feb 22 2020

@@ -80,9 +80,12 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 1
 
-modules-left = sysmenu pulseaudio
-modules-center = mpd 
-modules-right = 
+modules-left = sysmenu battery_i calendar memory
+
+;modules-center = mpd date 
+;modules-center = battery_bar memory
+modules-right =  
+;modules-right = 
 
 ;wm-restack = i3
 ;
@@ -171,12 +174,12 @@ bottom  = True
 border-size           = 0
 border-color          = #00000000 
 
-width = 35%
+width = 29%
 height = 27
 
 
 fixed-center = true 
-offset-x = 885 
+offset-x = 70.5% 
 offset-y = 3
 
 background = ${colors.background}
@@ -198,9 +201,11 @@ font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
 font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
 font-5 = "icomoon\-feather:size=9;2"
 
-modules-left = 
-modules-center = battery_bar memory date
+modules-left = pulseaudio
+modules-center = mpd 
+;modules-center = battery_bar memory
 modules-right = 
+;modules-right =  battery_i date calendar
 
 tray-position = right
 ;tray-position = ${env:TRAY_POSITION:right}
