@@ -21,6 +21,7 @@ echo $dirlist
 
 # -nvt for simulation ,, to check if everythings is safely linked
 #stow --adopt -nvt ~ $dirlist
+#stow * -nvt ~ $dirlist
 
 # -vt for actual linking
 stow --adopt -vt ~ $dirlist

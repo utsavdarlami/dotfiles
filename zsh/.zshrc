@@ -119,6 +119,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 autoload -Uz compinit
 compinit
 
-neofetch 
+#neofetch 
+PF_INFO="ascii title os host kernel uptime wm memory" PF_ASCII="kiss" pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
