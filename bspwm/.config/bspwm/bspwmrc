@@ -3,6 +3,7 @@
 sxhkd &
 picom -f & 
 nm-applet &
+xfce4-power-manager&
 mpd &
 xinput disable 14 &
 

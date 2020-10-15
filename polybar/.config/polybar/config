@@ -204,7 +204,7 @@ font-5 = "icomoon\-feather:size=10;2"
 modules-left = 
 modules-center = 
 ;modules-center = battery_bar memory
-modules-right = pulseaudio calendar date memory battery_i 
+modules-right = pulseaudio calendar date memory
 ;modules-right =  battery_i date calendar
 
 tray-position = right

@@ -7,7 +7,7 @@
 
 MUSIC_DIR=~/Music
 
-COVER=/tmp/cover.png
+COVER=~/.ncmpcpp/cover.png
 
 function reset_background
 {
