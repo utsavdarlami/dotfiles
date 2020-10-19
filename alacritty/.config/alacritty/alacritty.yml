@@ -139,8 +139,8 @@ colors:
   # Default colors
   primary:
     #background: '0x1e2127'
-    background:  '#26262A'
-    #background:  '#2a2a2e'
+    #background:  '#26262A'
+    background:  '#2a2a2e'
     #background:  '#232327'
     #background: '0x1d1f21'
     foreground: '#F4DEF4'

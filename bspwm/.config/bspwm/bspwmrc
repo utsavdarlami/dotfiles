@@ -4,7 +4,7 @@ sxhkd &
 picom -f & 
 nm-applet &
 xfce4-power-manager&
-mpd &
+#mpd &
 xinput disable 14 &
 
 feh --bg-scale ~/Pictures/Wallpaper/wallace.png &
