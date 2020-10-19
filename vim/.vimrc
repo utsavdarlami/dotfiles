@@ -583,3 +583,7 @@ nnoremap <silent> <F6> :Startify<CR>
 " end startify
 let g:tex_flavor = 'latex'
 
+nmap <leader>gs :G<CR>
+nmap <leader>gt :diffget //3<CR>
+nmap <leader>gm :diffget //2<CR>
+
