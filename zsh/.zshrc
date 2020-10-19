@@ -111,6 +111,7 @@ alias music='tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"' # Tmux
 alias dual_monitor="bash ~/.screenlayout/fine.sh"
 alias single_monitor="bash ~/.screenlayout/single.sh"
 alias dotfiles="cd ~/Desktop/Workspace/dotfiles"
+alias obsidian= "cd ~ && ./Obsidian/Obsidian-0.8.2.AppImage"
 # don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"

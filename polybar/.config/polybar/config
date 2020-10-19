@@ -142,6 +142,7 @@ font-5 = "icomoon\-feather:size=9;2"
 
 modules-left =
 modules-center = bspwm 
+;modules-center = 
 modules-right = 
 
 
