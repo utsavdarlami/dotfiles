@@ -3,6 +3,7 @@
 sxhkd &
 picom -f & 
 nm-applet &
+xfce4-power-manager&
 mpd &
 xinput disable 14 &
 
@@ -10,9 +11,7 @@ feh --bg-scale ~/Pictures/Wallpaper/wallace.png &
 # Launch polybar
 $HOME/.config/polybar/launch.sh &
 
-bspc monitor eDP1 -d 1 2 3 7 9
-bspc monitor HDMI1 -d 4 5 6 8 
-
+bspc monitor -d 1 2 3 4 9 6 7 8
 
 bspc config border_width         1
 bspc config window_gap          15
@@ -30,7 +29,8 @@ bspc config urgent_border_color "#f54e4e"
 bspc rule -a discord desktop='^8' state=floating follow=on
 bspc rule -a firefox desktop='^3' follow=on
 bspc rule -a vlc desktop='^4' follow=on
-bspc rule -a spotify desktop='^9' state=floating follow=on
+bspc rule -a obsidian desktop='^7' follow=on
+bspc rule -a spotify desktop='^5' state=floating follow=on
 
 # Wallpaper
 

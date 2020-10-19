@@ -105,7 +105,7 @@ alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
 alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
-alias vim='nvim'
+#alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
 alias music='tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"' # Tmux session with ncmpcpp and cover art
 alias dual_monitor="bash ~/.screenlayout/fine.sh"
@@ -120,6 +120,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 autoload -Uz compinit
 compinit
 
-neofetch 
+#neofetch 
+PF_INFO="ascii title os host kernel shell uptime wm memory" PF_ASCII="kiss" pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True

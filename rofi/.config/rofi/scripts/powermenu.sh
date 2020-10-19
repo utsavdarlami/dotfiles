@@ -9,7 +9,8 @@ uptime=$(uptime -p | sed -e 's/up //g')
 
 # Options
 shutdown=" "
-reboot=" "
+#reboot=" "
+reboot="ﰇ "
 #lock=""
 #suspend="鈴"
 logout=" "
