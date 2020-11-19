@@ -9,6 +9,7 @@ dirlist="
             mpd 
             mozilla
             ncmpcpp 
+            nvim
             neofetch 
             picom
             polybar 

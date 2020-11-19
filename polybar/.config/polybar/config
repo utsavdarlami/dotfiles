@@ -56,19 +56,19 @@ border-size           = 0
 border-color          = #00000000 
 
 width = 18%
-height = 27
+height = 30
 offset-x = 3
 offset-y = 3
 
 border-right-size = 0
 border-left-size = 2
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;0
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;0
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;0
-font-5 = "icomoon\-feather:size=9;2"
+font-0 = Hasklig:style=Regular:pixelsize=11;1
+font-1 = FontAwesome:size:11
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=10;0
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=10;0
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=10;0
+font-5 = "icomoon\-feather:size=10;2"
 
 radius = 2.0
 fixed-center = true 
@@ -112,11 +112,11 @@ line-size = 0
 line-color = 
 
 width = 20%
-height = 27
+height = 30
 radius = 2.0
 fixed-center = true 
 offset-x = 40% 
-offset-y = 3 
+offset-y = 2 
 
 border-size           = 0
 border-color          = #00000000 
@@ -133,12 +133,12 @@ module-margin-left = 0
 module-margin-right = 0
 
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
-font-5 = "icomoon\-feather:size=9;2"
+font-0 = Hasklig:style=Regular:pixelsize=11;1
+font-1 = FontAwesome:size:11
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=10;2
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=10;2
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=10;2
+font-5 = "icomoon\-feather:size=10;2"
 
 modules-left =
 modules-center = bspwm 
@@ -176,12 +176,12 @@ border-size           = 0
 border-color          = #00000000 
 
 width = 16%
-height = 27
+height = 30
 
 
 fixed-center = true 
 offset-x = 83.7% 
-offset-y = 3
+offset-y = 2
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -195,12 +195,12 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 0
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=10;2
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=10;2
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=10;2
-font-5 = "icomoon\-feather:size=10;2"
+font-0 = Hasklig:style=Regular:pixelsize=12;1
+font-1 = FontAwesome:size:11
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=11;2
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=11;2
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=11;2
+font-5 = "icomoon\-feather:size=11;2"
 
 modules-left = 
 modules-center = 

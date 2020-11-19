@@ -12,7 +12,7 @@ export ZSH="/home/felladog/.oh-my-zsh"
 ZSH_THEME="hyperzsh"
 
 #ZSH_THEME="spaceship"
- #ZSH_THEME="oxide"
+#ZSH_THEME="oxide"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -83,11 +83,12 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='vim'
+else
+    export EDITOR='nvim'
+    #export EDITOR='vim'
+fi
 #neofetch
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -101,18 +102,23 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 #
 # alias for virtual env
-alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
-alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
+#alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
+#alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
-#alias vim='nvim'
+alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
 alias music='tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"' # Tmux session with ncmpcpp and cover art
 alias dual_monitor="bash ~/.screenlayout/fine.sh"
 alias single_monitor="bash ~/.screenlayout/single.sh"
 alias dotfiles="cd ~/Desktop/Workspace/dotfiles"
 alias obsidian= "cd ~ && ./Obsidian/Obsidian-0.8.2.AppImage"
+#alias yt_audio="youtube-dl --add-metadata -i -x --audio-format best"
+alias yt_audio="youtube-dl --add-metadata -i -x --audio-format"
+# Download best format available but no better than 720p
+alias yt_video="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'"
 # don't put duplicate lines or lines starting with space in the history
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -121,6 +127,13 @@ autoload -Uz compinit
 compinit
 
 #neofetch 
-PF_INFO="ascii title os host kernel shell uptime wm memory" PF_ASCII="kiss" pfetch
+#
+#pfetch 
+PF_INFO="ascii title os host kernel shell wm editor uptime memory" PF_ASCII="kiss" pfetch
+#fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
+export PATH=/home/felladog/.gem/ruby/2.7.0/bin:$PATH
+
+# cheat.sh 
+function cheat(){ curl cheat.sh/"$@"; }

@@ -1,5 +1,5 @@
-" .rvimrc
-" http://vim.fisadev.com
+" .rvimrc 
+" http://vim.fisadev.com 
 " version: 12.0.0
 
 let fancy_symbols_enabled = 0
@@ -58,6 +58,9 @@ endif
 " A couple of nice colorschemes
 " Plug 'fisadev/fisa-vim-colorscheme'
 " Plug 'patstockwell/vim-monokai-tasty'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'https://github.com/altercation/vim-colors-solarized.git'
+Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim' 
 Plug 'arcticicestudio/nord-vim'
 " Plug 'gilgigilgil/anderson.vim'
@@ -173,6 +176,7 @@ Plug 'mhinz/vim-startify'
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
 
+
 " ============================================================================
 " Install plugins the first time vim runs
 
@@ -248,15 +252,11 @@ set completeopt-=preview
 " (complete only the common part, list the options that match)
 set wildmode=list:longest
 
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
 " save as sudo
 ca w!! w !sudo tee "%"
-
-" tab navigation mappings
-map tt :tabnew 
-map <M-l> :tabn<CR>
-"imap <M-Right> <ESC>:tabn<CR>
-map <M-h> :tabp<CR>
-" imap <M-Left> <ESC>:tabp<CR>
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=5
@@ -492,27 +492,34 @@ endif
 "
 set hidden
 
+"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
 let g:LanguageClient_serverCommands = {
-           \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+            \ 'rust': ['rust-analyzer'],
            \ }
-let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_diagnosticsEnable = 0 "1 shows error detail in line"
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 if (empty($TMUX))
-    if (has("nvim"))
-        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-    if (has("termguicolors"))
-        set termguicolors
-    endif
+   if (has("nvim"))
+      ""For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+   endif
+   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+   "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+   " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+   if (has("termguicolors"))
+      set termguicolors
+   endif
 endif
+
 "colorscheme nord
 colorscheme  onedark
+"syntax enable
+"set background=dark
+"colorscheme gruvbox
+"colorscheme solarized
+""set colors_name=solarized
 
 hi Normal guibg=NONE ctermbg=NONE
 let mapleader=','
@@ -529,20 +536,21 @@ set foldmethod=indent "syntax highlighting items specify folds
 let javaScript_fold=1 "activate folding by JS syntax
 let python_fold=1
 set foldlevelstart=99 "start file with all folds opened
+
 "-- VIM Markdown - -
             "\ 'path': '~/Desktop/Notes/',
             "\ 'custom_wiki2html': '$HOME/Desktop/Workspace/dotfiles/wiki2html.sh',
+            "\ 'custom_wiki2html': '$HOME/Documents/vimwiki/wiki2html.sh',
+            "\ 'path_html': '$HOME/Documents/vimwiki/_site',
+            "\ 'template_path': '$HOME/Documents/vimwiki/templates/',
+            "\ 'auto_export': 1,
+            "\ 'template_ext':'.html'
 let g:vimwiki_list = [{
-            \ 'auto_export': 1,
             \ 'automatic_nested_syntaxes':1,
-            \ 'path_html': '$HOME/Documents/vimwiki/_site',
             \ 'path': '$HOME/Documents/vimwiki/content',
-            \ 'template_path': '$HOME/Documents/vimwiki/templates/',
             \ 'syntax': 'markdown',
             \ 'ext': '.md',
             \ 'template_default':'markdown',
-            \ 'custom_wiki2html': '$HOME/Documents/vimwiki/wiki2html.sh',
-            \ 'template_ext':'.html'
             \}]
 
 let g:mkdp_preview_options = {
@@ -561,15 +569,9 @@ let g:mkdp_preview_options = {
 let g:mkdp_echo_preview_url = 1
 noremap <Leader>mp :MarkdownPreview<CR>
 set guicursor=n-v-c:ver20-Cursor/lCursor,i-ci:ver20-Cursor/lCursor,r-cr:ver20-Cursor/lCursor
-" _--STATUS LIne  -- - -
-"
+" ---- STATUS LINE  ----
 
 nnoremap <silent> <F11> :YRShow<CR>
-"Neomake 
-map <M-j> :lnext<CR>
-map <M-k> :lprev<CR>
-map <M-o> :lopen<CR>
-
 
 " startify_bookmarks
 let g:startify_bookmarks = [ 
@@ -581,9 +583,22 @@ let g:startify_bookmarks = [
 
 nnoremap <silent> <F6> :Startify<CR>
 " end startify
+
 let g:tex_flavor = 'latex'
 
 nmap <leader>gs :G<CR>
 nmap <leader>gt :diffget //3<CR>
 nmap <leader>gm :diffget //2<CR>
 
+"" Alt key only works for neovim
+"For Neomake 
+nnoremap <M-j> :lnext<CR>
+nnoremap <M-k> :lprev<CR>
+nnoremap <M-o> :lopen<CR>
+nnoremap <M-a> ggVG
+
+" tab navigation mappings
+nnoremap tt :tabnew 
+nnoremap <M-l> :tabn<CR>
+nnoremap <M-h> :tabp<CR>
+"nnoremap <M-y> :echo "hy world"<CR>
