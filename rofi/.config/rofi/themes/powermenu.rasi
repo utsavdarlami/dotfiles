@@ -16,6 +16,7 @@
   text-font:                            "Comfortaa 12";
   icon-font:                            "Hurmit Nerd Font Mono 32";
   icon-font-small:                      "Hurmit Nerd Font Mono 24";
+  show-icons:                           true;
 
   option-6-listview-spacing:            10px;
 

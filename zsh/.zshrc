@@ -108,17 +108,21 @@ alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
 alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
-alias music='tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"' # Tmux session with ncmpcpp and cover art
-alias dual_monitor="bash ~/.screenlayout/fine.sh"
-alias single_monitor="bash ~/.screenlayout/single.sh"
-alias dotfiles="cd ~/Desktop/Workspace/dotfiles"
-alias obsidian= "cd ~ && ./Obsidian/Obsidian-0.8.2.AppImage"
+alias music="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
+alias dotfiles="cd ~/Desktop/dotfiles"
 #alias yt_audio="youtube-dl --add-metadata -i -x --audio-format best"
-alias yt_audio="youtube-dl --add-metadata -i -x --audio-format"
+alias yt_audio="youtube-dl --add-metadata -i -x --audio-format best"
 # Download best format available but no better than 720p
 alias yt_video="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'"
-# don't put duplicate lines or lines starting with space in the history
 
+# dual Monitor set for intel
+alias dual_monitor="bash ~/.screenlayout/fine.sh"
+alias single_monitor="bash ~/.screenlayout/single.sh"
+# dual Monitor set for nvidia 
+alias dual_monitor_n="bash ~/.screenlayout/n_fine.sh"
+alias single_monitor_n="bash ~/.screenlayout/n_single.sh"
+
+# don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -130,6 +134,7 @@ compinit
 #
 #pfetch 
 PF_INFO="ascii title os host kernel shell wm editor uptime memory" PF_ASCII="kiss" pfetch
+/home/felladog/Desktop/Workspace/grepy/gre2.py
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
@@ -137,3 +142,8 @@ export PATH=/home/felladog/.gem/ruby/2.7.0/bin:$PATH
 
 # cheat.sh 
 function cheat(){ curl cheat.sh/"$@"; }
+# Obsidian
+function obsidian(){ 
+   cd $HOME && ./Obsidian/Obsidian-0.9.3.AppImage;
+}
+#

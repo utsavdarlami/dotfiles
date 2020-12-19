@@ -12,12 +12,22 @@ visualizer_fifo_path = "/tmp/mpd.fifo"
 visualizer_in_stereo = "no"
 visualizer_type = "ellipse"
 visualizer_output_name = "my_fifo"
-visualizer_look = "●┃"
+#visualizer_look = "●┃"
 visualizer_color = cyan, green, yellow, magenta, red
 
+visualizer_look = "  "           
+# First we make the visualizer invisible
+startup_screen ="visualizer"
+# Next we make the left pane open on the empty visualizer
+startup_slave_screen = "playlist"
+# The right pane is the usual playlist view
+startup_slave_screen_focus = "yes"
+# We focus the right pane on ncmpcpp startup
+locked_screen_width_part = "30"
+# We make the empty pane occupy 30% width, just like the cover art
 message_delay_time = "3"
 playlist_shorten_total_times = "yes"
-playlist_display_mode = "classic"
+playlist_display_mode = "columns"
 browser_display_mode = "columns"
 search_engine_display_mode = "columns"
 playlist_editor_display_mode = "columns"
@@ -25,7 +35,7 @@ autocenter_mode = "yes"
 centered_cursor = "yes"
 user_interface = "classic"
 follow_now_playing_lyrics = "yes"
-locked_screen_width_part = "60"
+#locked_screen_width_part = "60"
 ask_for_locked_screen_width_part = "no"
 display_bitrate = "no"
 external_editor = "vim"
@@ -57,15 +67,19 @@ now_playing_suffix = "$8$/b"
 #now_playing_suffix = "$2$/u$2"
 
 song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+#song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (35)[yellow]{t|f} (5)[blue]{l}"
+#song_columns_list_format = "(25)[6]{a} (35)[4]{t|f} (5)[2]{l}"
+#song_list_format = "$6{%a »$4 %t$/r$R}|{%f}"
 #artist_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
 
 color1 = "cyan"
 color2 = "magenta" 
 
-song_list_format = "$3%t $R$2%a  $5%5l"
+# song_list_format = "$3%t $R$2%a  $5%5l"
 # song_list_format = "(2)[magenta]{} (7)[blue]{t|f} (5)[green]{a} (5)[red]{l}"
 
-execute_on_song_change="~/.ncmpcpp/art.sh && notify-send "Now Playing" "$(mpc current)" -i /tmp/cover.png"
+#execute_on_song_change="~/.ncmpcpp/art.sh && notify-send "Now Playing" "$(mpc current)" -i /tmp/cover.png"
+execute_on_song_change="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp_cover_art.sh"
 
 song_status_format = "$b$7♫ $2%a $4⟫$3⟫ $8%t $4⟫$3⟫ $5%b "
 song_window_title_format = " {%a} - {%t}"

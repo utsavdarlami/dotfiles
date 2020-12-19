@@ -14,6 +14,7 @@
   - xfce4-terminal
   - mononoki regualr font
   - ncmpcpp
+  - zathura
 
 - Install [stow](https://www.gnu.org/software/stow/manual/stow.html#Introduction)
 
@@ -28,8 +29,19 @@
 
 ## ScreenShot
 
+- Dec 11 2020 [latest]
+    
+    <img src="screenshots/11dec_5.png">
 
-- June 24 2020 [latest]
+| Obsidian Graph                                                | Obsidain and vimwiki                                                      |
+| -                                                             | -                                                                         |
+| ![obsidian_graph](./screenshots/11dec_3.png "Obsidian Graph") | ![obsidian and vimwiki](./screenshots/11dec_4.png "obsidian and vimwiki") |
+  
+| ncmpcpp                                 | Firefox                                |
+| -                                       | -                                      |
+| <img src="./screenshots/11dec_1.png" /> | <img src="./screenshots/11dec_2.png"/> |
+
+- June 24 2020 
   
     <img src="screenshots/24june1.png">
     

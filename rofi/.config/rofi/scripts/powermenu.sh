@@ -10,17 +10,18 @@ uptime=$(uptime -p | sed -e 's/up //g')
 # Options
 #shutdown=" "
 shutdown="⏼ "
+#shutdown="\0icon\x1f/usr/share/icons/Papirus/48x48/apps/system-shutdown.svg\n"
 #reboot=" "
 reboot="ﰇ"
-#lock=""
+lock=" "
 #suspend="鈴"
 logout=" "
 
 # Variable passed to rofi
-options="$shutdown\n$reboot\n$logout"
+options="$shutdown\n$reboot\n$logout\n$lock"
 
 
-chosen="$(echo -e "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 6)"
+chosen="$(echo -en "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 6)"
 case $chosen in
     $shutdown)
         systemctl poweroff;;
@@ -28,5 +29,7 @@ case $chosen in
         systemctl reboot;;
     $logout)
         bspc quit;;
+    $lock)
+        betterlockscreen -l dim;;
 esac
 

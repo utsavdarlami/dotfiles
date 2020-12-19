@@ -15,6 +15,7 @@ dirlist="
             polybar 
             rofi 
             screen 
+            screenlayout
             sxhkd 
             vim 
             Xresources
@@ -36,6 +37,3 @@ echo $etc
 # -vt for actual linking
 stow --adopt -vt ~ $dirlist
 stow --adopt -vt /etc/ $etc
-
-
-

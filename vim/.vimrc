@@ -86,6 +86,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 Plug 'vimwiki/vimwiki'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Async autocompletion
 if using_neovim && vim_plug_just_installed
     Plug 'Shougo/deoplete.nvim', {'do': ':autocmd VimEnter * UpdateRemotePlugins'}
@@ -567,7 +568,9 @@ let g:mkdp_preview_options = {
             \ }
 
 let g:mkdp_echo_preview_url = 1
+let g:mkdp_auto_close = 0
 noremap <Leader>mp :MarkdownPreview<CR>
+
 set guicursor=n-v-c:ver20-Cursor/lCursor,i-ci:ver20-Cursor/lCursor,r-cr:ver20-Cursor/lCursor
 " ---- STATUS LINE  ----
 
