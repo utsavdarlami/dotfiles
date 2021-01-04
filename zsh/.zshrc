@@ -122,6 +122,14 @@ alias single_monitor="bash ~/.screenlayout/single.sh"
 alias dual_monitor_n="bash ~/.screenlayout/n_fine.sh"
 alias single_monitor_n="bash ~/.screenlayout/n_single.sh"
 
+# git alias
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit -m"
+alias gpush="git push"
+alias gpull="git pull"
+# git alias end
+
 # don't put duplicate lines or lines starting with space in the history
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -147,3 +155,7 @@ function obsidian(){
    cd $HOME && ./Obsidian/Obsidian-0.9.3.AppImage;
 }
 #
+function nvidia_active(){ 
+    cat "/sys/bus/pci/devices/0000:57:00.0/power/runtime_status"
+}
+#function

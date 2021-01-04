@@ -4,6 +4,7 @@ dirlist="
             alacritty 
             bash 
             bspwm 
+            emacs
             i3 
             lock 
             mpd 
@@ -19,6 +20,7 @@ dirlist="
             sxhkd 
             vim 
             Xresources
+            Xmodmap
             zsh 
             zathura
         "
