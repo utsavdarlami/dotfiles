@@ -106,6 +106,7 @@ fi
 #alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
+alias deep='source ~/anaconda3/bin/activate && conda activate deep'
 alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
 alias music="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
@@ -159,3 +160,16 @@ function nvidia_active(){
     cat "/sys/bus/pci/devices/0000:57:00.0/power/runtime_status"
 }
 #function
+
+# emacs vterm fix
+vterm_printf(){
+    if [ -n "$TMUX" ]; then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}

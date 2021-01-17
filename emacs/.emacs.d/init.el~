@@ -35,7 +35,7 @@
 (package-initialize)
 (unless package-archive-contents
  (package-refresh-contents))
-;; Initialize use-package on non-Linux platforms
+;; initialize use-package on non-linux platforms
 (unless (package-installed-p 'use-package)
    (package-install 'use-package))
 
@@ -44,11 +44,10 @@
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
-;; Disable line numbers for some modes
+;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook
                 term-mode-hook
                 vterm-mode-hook
-		            treemacs-mode-hook
                 shell-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -59,25 +58,21 @@
 (use-package undo-tree)
 (global-undo-tree-mode t)
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
-
 (use-package ivy
   :diminish
-  :bind (("C-s" . swiper)
+  :bind (("c-s" . swiper)
          :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
-         ("C-l" . ivy-alt-done)
-         ("C-n" . ivy-next-line)
-         ("C-p" . ivy-previous-line)
+         ("tab" . ivy-alt-done)	
+         ("c-l" . ivy-alt-done)
+         ("c-n" . ivy-next-line)
+         ("c-p" . ivy-previous-line)
          :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
+         ("c-k" . ivy-previous-line)
+         ("c-l" . ivy-done)
+         ("c-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+         ("c-k" . ivy-previous-line)
+         ("c-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
@@ -89,21 +84,21 @@
 (use-package all-the-icons)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by custom.
+ ;; if you edit it by hand, you could mess it up, so be careful.
+ ;; your init file should contain only one such instance.
+ ;; if there is more than one, they won't work right.
  '(custom-safe-themes
    '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" default))
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by custom.
+ ;; if you edit it by hand, you could mess it up, so be careful.
+ ;; your init file should contain only one such instance.
+ ;; if there is more than one, they won't work right.
  )
 
 (use-package rainbow-delimiters
@@ -121,16 +116,16 @@
   (ivy-rich-mode 1))
 
 (use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-x b" . counsel-ibuffer)
-         ("C-x C-f" . counsel-find-file)
+  :bind (("m-x" . counsel-m-x)
+         ("c-x b" . counsel-ibuffer)
+         ("c-x c-f" . counsel-find-file)
          :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history)))
+         ("c-r" . 'counsel-minibuffer-history)))
 	 ;:config
 	 ;(counsel-mode 1))
 	 
 
-;(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
+;(global-set-key (kbd "c-m-j") 'counsel-switch-buffer)
 
 (use-package helpful
   :custom
@@ -147,8 +142,8 @@
   :config
   (general-create-definer rune/leader-keys
     :keymaps '(normal insert visual emacs)
-    :prefix "SPC"
-    :global-prefix "C-SPC")
+    :prefix "spc"
+    :global-prefix "c-spc")
 
   (rune/leader-keys
     "t"  '(:ignore t :which-key "toggles")
@@ -158,24 +153,24 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump nil)
+  (setq evil-want-c-u-scroll t)
+  (setq evil-want-c-i-jump nil)
   (setq evil-emacs-state-cursor '("#b7c63f" bar))        
   (setq evil-normal-state-cursor '("#3faec6" bar))       
   (setq evil-insert-state-cursor '("#3fabc6" bar))       
   (setq evil-undo-system 'undo-tree)
   :config
   (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  (define-key evil-insert-state-map (kbd "c-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "c-h") 'evil-delete-backward-char-and-join)
 
-  ; alternative C-x C-s
+  ; alternative c-x c-s
   (define-key evil-normal-state-map (kbd ",w") 'save-buffer)
-  ; alternative C-w c
+  ; alternative c-w c
   (define-key evil-normal-state-map (kbd ",q") 'evil-window-delete) 
   
- ; (evil-normal-state-map C-r)
-  ;; Use visual line motions even outside of visual-line-mode buffers
+ ; (evil-normal-state-map c-r)
+  ;; use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
@@ -202,11 +197,11 @@
   :config (projectile-mode)
   :custom ((projectile-completion-system 'ivy))
   :bind-keymap
-  ("C-c p" . projectile-command-map)
+  ("c-c p" . projectile-command-map)
   :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Desktop/Workspace")
-    (setq projectile-project-search-path '("~/Desktop/Workspace")))
+  ;; note: set this to the folder where you keep your git repos!
+  (when (file-directory-p "~/desktop/workspace")
+    (setq projectile-project-search-path '("~/desktop/workspace")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
@@ -220,9 +215,9 @@
 ;  :after magit)
 
 ; /---------------------/
-; /---------Org---------/
+; /---------org---------/
 ; /---------------------/
-;; Org Mode Configuration ------------------------------------------------------
+;; org mode configuration ------------------------------------------------------
 
 (defun efs/org-mode-setup ()
   (org-indent-mode)
@@ -231,12 +226,12 @@
 
 
 (defun efs/org-font-setup ()
-  ;; Replace list hyphen with dot
+  ;; replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  ;; Set faces for heading levels
+  ;; set faces for heading levels
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
@@ -247,7 +242,7 @@
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "mononoki" :weight 'regular :height (cdr face)))
 
-  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  ;; ensure that anything that should be fixed-pitch in org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
   ;(set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
@@ -266,82 +261,82 @@
   (setq org-log-into-drawer t)
 
   (setq org-agenda-files
-	'("~/Documents/org-notes/Tasks.org"
-	  "~/Documents/org-notes/Goals.org"
+	'("~/documents/org-notes/tasks.org"
+	  "~/documents/org-notes/goals.org"
 	 ))
 
 
   (setq org-todo-keywords
-    '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+    '((sequence "todo(t)" "next(n)" "|" "done(d!)")
+      (sequence "backlog(b)" "plan(p)" "ready(r)" "active(a)" "review(v)" "wait(w@/!)" "hold(h)" "|" "completed(c)" "canc(k@)")))
 
   (setq org-tag-alist
     '((:startgroup)
-       ; Put mutually exclusive tags here
+       ; put mutually exclusive tags here
        (:endgroup)
-       ("@errand" . ?E)
-       ("@home" . ?H)
-       ("@work" . ?W)
+       ("@errand" . ?e)
+       ("@home" . ?h)
+       ("@work" . ?w)
        ("agenda" . ?a)
        ("planning" . ?p)
-       ("publish" . ?P)
+       ("publish" . ?p)
        ("batch" . ?b)
        ("note" . ?n)
        ("idea" . ?i)))
 
   (setq org-refile-targets
-    '(("Archive.org" :maxlevel . 1)
-      ("Tasks.org" :maxlevel . 1)))
+    '(("archive.org" :maxlevel . 1)
+      ("tasks.org" :maxlevel . 1)))
 
-  ;; Save Org buffers after refiling!
+  ;; save org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-  ;; Configure custom agenda views
+  ;; configure custom agenda views
   (setq org-agenda-custom-commands
-   '(("d" "Dashboard"
+   '(("d" "dashboard"
      ((agenda "" ((org-deadline-warning-days 7)))
-      (todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))
-      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+      (todo "next"
+        ((org-agenda-overriding-header "next tasks")))
+      (tags-todo "agenda/active" ((org-agenda-overriding-header "active projects")))))
 
-    ("n" "Next Tasks"
-     ((todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))))
+    ("n" "next tasks"
+     ((todo "next"
+        ((org-agenda-overriding-header "next tasks")))))
 
-    ("W" "Work Tasks" tags-todo "+work-email")
+    ("w" "work tasks" tags-todo "+work-email")
 
-    ;; Low-effort next actions
-    ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-     ((org-agenda-overriding-header "Low Effort Tasks")
+    ;; low-effort next actions
+    ("e" tags-todo "+todo=\"next\"+effort<15&+effort>0"
+     ((org-agenda-overriding-header "low effort tasks")
       (org-agenda-max-todos 20)
       (org-agenda-files org-agenda-files)))
 
-    ("w" "Workflow Status"
-     ((todo "WAIT"
-            ((org-agenda-overriding-header "Waiting on External")
+    ("w" "workflow status"
+     ((todo "wait"
+            ((org-agenda-overriding-header "waiting on external")
              (org-agenda-files org-agenda-files)))
-      (todo "REVIEW"
-            ((org-agenda-overriding-header "In Review")
+      (todo "review"
+            ((org-agenda-overriding-header "in review")
              (org-agenda-files org-agenda-files)))
-      (todo "PLAN"
-            ((org-agenda-overriding-header "In Planning")
+      (todo "plan"
+            ((org-agenda-overriding-header "in planning")
              (org-agenda-todo-list-sublevels nil)
              (org-agenda-files org-agenda-files)))
-      (todo "BACKLOG"
-            ((org-agenda-overriding-header "Project Backlog")
+      (todo "backlog"
+            ((org-agenda-overriding-header "project backlog")
              (org-agenda-todo-list-sublevels nil)
              (org-agenda-files org-agenda-files)))
-      (todo "READY"
-            ((org-agenda-overriding-header "Ready for Work")
+      (todo "ready"
+            ((org-agenda-overriding-header "ready for work")
              (org-agenda-files org-agenda-files)))
-      (todo "ACTIVE"
-            ((org-agenda-overriding-header "Active Projects")
+      (todo "active"
+            ((org-agenda-overriding-header "active projects")
              (org-agenda-files org-agenda-files)))
-      (todo "COMPLETED"
-            ((org-agenda-overriding-header "Completed Projects")
+      (todo "completed"
+            ((org-agenda-overriding-header "completed projects")
              (org-agenda-files org-agenda-files)))
-      (todo "CANC"
-            ((org-agenda-overriding-header "Cancelled Projects")
+      (todo "canc"
+            ((org-agenda-overriding-header "cancelled projects")
              (org-agenda-files org-agenda-files)))))))
 
   (setq org-capture-templates
@@ -414,7 +409,7 @@
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . efs/lsp-mode-setup)
   :init
-  (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+  (setq lsp-keymap-prefix "c-c l")  ;; or 'c-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
 
@@ -428,7 +423,7 @@
   :defer t
   :init
   (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    (define-key winum-keymap (kbd "m-0") #'treemacs-select-window))
   :config
    (progn
     (treemacs-filewatch-mode t)
@@ -473,7 +468,7 @@
   :hook (company-mode . company-box-mode))
 
 (use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  :bind ("m-/" . evilnc-comment-or-uncomment-lines))
 
 
 (use-package term
@@ -497,7 +492,7 @@
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
+  :bind (("c-x c-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
@@ -515,6 +510,9 @@
 ;;(global-set-key (kbd "c-c c-+") 'evil-numbers/inc-at-pt-incremental)
 ;;(global-set-key (kbd "c-c c--") 'evil-numbers/dec-at-pt-incremental)
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 (use-package rustic
   :mode ("\\.rs\\'" . rustic-mode)
@@ -524,11 +522,11 @@
         rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
 
 (use-package lsp-python-ms
-   :ensure t
-   :init (setq lsp-python-ms-auto-install-server t)
-   :hook (python-mode . (lambda ()
-                           (require 'lsp-python-ms)
-                           (lsp))))  ; or lsp-deferred
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))))  ; or lsp-deferred
 ;; (use-package python-mode
 ;;   :ensure nil 
 ;;   :hook (python-mode . lsp-deferred)

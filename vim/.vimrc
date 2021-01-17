@@ -124,7 +124,7 @@ Plug 'lilydjwg/colorizer'
 " Window chooser
 Plug 't9md/vim-choosewin'
 " Automatically sort python imports
-Plug 'fisadev/vim-isort'
+"Plug 'fisadev/vim-isort'
 " Highlight matching html tags
 Plug 'valloric/MatchTagAlways'
 " Generate html in a simple way
