@@ -98,7 +98,7 @@
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -537,13 +537,27 @@
    :hook (python-mode . (lambda ()
                            (require 'lsp-python-ms)
                            (lsp))))  ; or lsp-deferred
-;; (use-package python-mode
-;;   :ensure nil 
-;;   :hook (python-mode . lsp-deferred)
-;;   :custom
-;;   ;; NOTE: Set these if Python 3 is called "python3" on your system!
-;;   (python-shell-interpreter "python3"))
+(use-package python-mode
+   :ensure nil 
+   :hook (python-mode . lsp-deferred)
+   :custom
+   ;; NOTE: Set these if Python 3 is called "python3" on your system!
+   (python-shell-interpreter "python3"))
 ;;   ;; (dap-python-executable "python3")
 ;;   ;; (dap-python-debugger 'debugpy)
 ;;   ;; :config
 ;;   ;; (require 'dap-python))
+
+(use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/Documents/org-notes/")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))
+              (("C-c n I" . org-roam-insert-immediate))))
