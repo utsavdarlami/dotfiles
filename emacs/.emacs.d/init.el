@@ -98,7 +98,7 @@
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -345,34 +345,34 @@
              (org-agenda-files org-agenda-files)))))))
 
   (setq org-capture-templates
-    `(("t" "tasks / projects")
-      ("tt" "task" entry (file+olp "~/documents/org-notes/tasks.org" "inbox")
+    `(("t" "Tasks / Projects")
+      ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
            "* todo %?\n  %u\n  %a\n  %i" :empty-lines 1)
 
-      ("i" "ideas")
-      ("ii" "idea" entry (file+olp "~/documents/org-notes/ideas.org" "ideas")
+      ("i" "Ideas")
+      ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
            "* todo %?\n  %u\n  %a\n  %i" :empty-lines 1)
 
-      ("j" "journal entries")
-      ("jj" "journal" entry
-           (file+olp+datetree "~/documents/org-notes/journal.org")
-           "\n* %<%i:%m %p> - journal :journal:\n\n%?\n\n"
+      ("j" "Journal Entries")
+      ("jj" "Journal" entry
+           (file+olp+datetree "~/Documents/org-notes/Journal.org")
+           "\n* %<%i:%m %p> - Journal :Journal:\n\n%?\n\n"
            ;; ,(dw/read-file-as-string "~/notes/templates/daily.org")
            :clock-in :clock-resume
            :empty-lines 1)
 
-      ("jm" "meeting" entry
-           (file+olp+datetree " ~/documents/org-notes/journal.org")
+      ("jm" "Meeting" entry
+           (file+olp+datetree " ~/Documents/org-notes/Journal.org")
            "* %<%i:%m %p> - %a :meetings:\n\n%?\n\n"
            :clock-in :clock-resume
            :empty-lines 1)
 
-      ("w" "workflows")
-      ("we" "checking email" entry (file+olp+datetree "~/documents/org-notes/journal.org")
-           "* checking email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+      ("w" "Workflows")
+      ("we" "Checking Email" entry (file+olp+datetree "~/Documents/org-notes/Journal.org")
+           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
       ))
 
-  (define-key global-map (kbd "c-c j")
+  (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil)))
        
 
@@ -405,6 +405,8 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+;; ----- 
 
 (defun efs/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
@@ -508,6 +510,12 @@
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 
 ;;(require 'evil-numbers)
 ;;(global-set-key (kbd "c-c +") 'evil-numbers/inc-at-pt)
