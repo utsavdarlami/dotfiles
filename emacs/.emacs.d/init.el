@@ -260,6 +260,7 @@
   :hook (org-mode . efs/org-mode-setup)
   :config
   (setq org-ellipsis " ⤵")
+  (setq org-hide-emphasis-markers t)
 
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
@@ -269,6 +270,15 @@
 	'("~/Documents/org-notes/Tasks.org"
 	  "~/Documents/org-notes/Goals.org"
 	 ))
+
+  (setq org-format-latex-options
+      '(:foreground default
+        :background default
+        :scale 2.0
+        :html-foreground "Black"
+        :html-background "Transparent"
+        :html-scale 2.0
+        :matchers ("begin" "$1" "$$" "\\(" "\\[")))
 
 
   (setq org-todo-keywords
