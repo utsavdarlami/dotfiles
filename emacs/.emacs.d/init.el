@@ -484,8 +484,8 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+(use-package evil-nerd-commenter)
+(define-key evil-normal-state-map (kbd ", c SPC") 'evilnc-comment-or-uncomment-lines)
 
 
 (use-package term
@@ -546,7 +546,10 @@
    :init (setq lsp-python-ms-auto-install-server t)
    :hook (python-mode . (lambda ()
                            (require 'lsp-python-ms)
-                           (lsp))))  ; or lsp-deferred
+                           (lsp-deferred)))  ; or lsp-deferred
+  :init
+  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+
 (use-package python-mode
    :ensure nil 
    :hook (python-mode . lsp-deferred)
