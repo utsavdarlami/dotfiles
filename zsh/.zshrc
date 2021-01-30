@@ -121,6 +121,7 @@ alias dual_monitor="bash ~/.screenlayout/fine.sh"
 alias single_monitor="bash ~/.screenlayout/single.sh"
 # dual Monitor set for nvidia 
 alias dual_monitor_n="bash ~/.screenlayout/n_fine.sh"
+alias dual_monitor_n_left="bash ~/.screenlayout/n_l_r.sh"
 alias single_monitor_n="bash ~/.screenlayout/n_single.sh"
 
 # git alias

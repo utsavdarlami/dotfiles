@@ -98,7 +98,7 @@
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -357,11 +357,11 @@
   (setq org-capture-templates
     `(("t" "Tasks / Projects")
       ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
-           "* todo %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
 
       ("i" "Ideas")
       ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
-           "* todo %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
 
       ("j" "Journal Entries")
       ("jj" "Journal" entry
@@ -571,3 +571,8 @@
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
+
+(use-package ein)
+(use-package evil-numbers)
+(define-key evil-normal-state-map (kbd ", a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd ", x") 'evil-numbers/dec-at-pt)

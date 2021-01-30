@@ -13,7 +13,7 @@ feh --bg-scale ~/Pictures/Wallpaper/wallace.png &
 $HOME/.config/polybar/launch.sh &
 
 #bspc monitor eDP-1-1 -s DP-1-1
-bspc monitor DP-1-1 -s eDP-1-1
+#bspc monitor DP-1-1 -s eDP-1-1
 bspc monitor \^1 -d 1 2 3 4 9 6 7
 bspc monitor \^2 -d 5 8
 #bspc monitor -d 1 2 3 4 9 6 7 8
