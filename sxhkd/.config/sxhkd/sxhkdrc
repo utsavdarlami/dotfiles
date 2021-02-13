@@ -151,10 +151,12 @@ XF86AudioMute
 #Start Firefox
 super + shift + f
 	firefox
-
+# thunar
 super + e
     thunar
-
+# emacs
+super + shift + m 
+    emacs 
 # rofi run
 super + O
     rofi -show run
