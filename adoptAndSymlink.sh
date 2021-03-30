@@ -14,6 +14,7 @@ dirlist="
             neofetch 
             picom
             polybar 
+            rofi
             screen 
             screenlayout
             sxhkd 

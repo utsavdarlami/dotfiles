@@ -165,6 +165,10 @@ super + P
     rofi -show drun
 alt + Tab 
     rofi -show window
+# rofi powermenu 
+#super + S 
+    #bash ~/.config/rofi/powermenu/powermenu.sh
+        #rofi -show drun
 # ScreenShot
 ctrl + alt + P
     bash screen.sh 
