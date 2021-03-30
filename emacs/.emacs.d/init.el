@@ -98,7 +98,7 @@
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(ox-hugo cmds-menu evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -274,10 +274,10 @@
   (setq org-format-latex-options
       '(:foreground default
         :background default
-        :scale 2.0
+        :scale 3.0
         :html-foreground "Black"
         :html-background "Transparent"
-        :html-scale 2.0
+        :html-scale 3.0
         :matchers ("begin" "$1" "$$" "\\(" "\\[")))
 
 
@@ -357,11 +357,11 @@
   (setq org-capture-templates
     `(("t" "Tasks / Projects")
       ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
-           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
       ("i" "Ideas")
       ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
-           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
       ("j" "Journal Entries")
       ("jj" "Journal" entry
@@ -450,7 +450,15 @@
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple)))))
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package lsp-treemacs
   :after lsp)
@@ -567,15 +575,38 @@
       (after-init . org-roam-mode)
       :custom
       (org-roam-directory "~/Documents/org-notes/")
+
       :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
                ("C-c n g" . org-roam-graph))
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+              (("C-c n I" . org-roam-insert-immediate)))
+      :config
+      (setq org-roam-capture-templates
+        '(("d" "default" plain (function org-roam-capture--get-point)
+	   "%?"
+           :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
+           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n--- \n- References : \n\n- Questions : \n--- \n"
+           :unnarrowed t)))
+)
 
 (use-package ein)
 (use-package evil-numbers)
 (define-key evil-normal-state-map (kbd ", a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd ", x") 'evil-numbers/dec-at-pt)
+
+(set-frame-parameter (selected-frame) 'alpha '(98 . 96))
+
+(use-package ox-hugo
+  :ensure t
+  :after ox)
+
+(defun jethro/org-roam-export-all ()
+  "Re-exports all Org-roam files to Hugo markdown."
+  (interactive)
+  (dolist (f (org-roam--list-all-files))
+    (with-current-buffer (find-file f)
+      (when (s-contains? "SETUPFILE" (buffer-string))
+        (org-hugo-export-wim-to-md)))))

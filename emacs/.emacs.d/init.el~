@@ -98,7 +98,7 @@
  '(global-command-log-mode t)
  '(ivy-mode t)
  '(package-selected-packages
-   '(evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
+   '(cmds-menu evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -357,11 +357,11 @@
   (setq org-capture-templates
     `(("t" "Tasks / Projects")
       ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
-           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
       ("i" "Ideas")
       ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
-           "* TODO %?\n  %u\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
       ("j" "Journal Entries")
       ("jj" "Journal" entry
@@ -484,8 +484,8 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+(use-package evil-nerd-commenter)
+(define-key evil-normal-state-map (kbd ", c SPC") 'evilnc-comment-or-uncomment-lines)
 
 
 (use-package term
@@ -546,7 +546,10 @@
    :init (setq lsp-python-ms-auto-install-server t)
    :hook (python-mode . (lambda ()
                            (require 'lsp-python-ms)
-                           (lsp))))  ; or lsp-deferred
+                           (lsp-deferred)))  ; or lsp-deferred
+  :init
+  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+
 (use-package python-mode
    :ensure nil 
    :hook (python-mode . lsp-deferred)
@@ -574,3 +577,11 @@
 
 (use-package ein)
 (use-package evil-numbers)
+(define-key evil-normal-state-map (kbd ", a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd ", x") 'evil-numbers/dec-at-pt)
+
+(set-frame-parameter (selected-frame) 'alpha '(98 . 96))
+
+(use-package ox-hugo
+  :ensure t
+  :after ox)
