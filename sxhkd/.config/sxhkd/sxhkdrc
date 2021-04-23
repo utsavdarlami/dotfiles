@@ -21,7 +21,7 @@ super + shift + e
     bspc quit 
 
 # restart bspwm
-super + shift + r
+super + R
 	bspc wm -r
 
 # close and kill
@@ -157,18 +157,19 @@ super + e
 # emacs
 super + shift + m 
     emacs 
-# rofi run
+# launcher rofi
 super + O
-    rofi -show run
+    bash ~/.config/rofi/launchers/text/launcher.sh
+# rofi run
+    #rofi -show run
 # rofi drun
-super + P 
-    rofi -show drun
-alt + Tab 
-    rofi -show window
+#super + P 
+    #rofi -show drun
+#alt + Tab 
+    #rofi -show window
 # rofi powermenu 
 #super + S 
     #bash ~/.config/rofi/powermenu/powermenu.sh
-        #rofi -show drun
 # ScreenShot
 ctrl + alt + P
     bash screen.sh 

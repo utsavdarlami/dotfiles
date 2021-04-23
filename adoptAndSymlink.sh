@@ -11,7 +11,6 @@ dirlist="
             mozilla
             ncmpcpp 
             nvim
-            neofetch 
             picom
             polybar 
             rofi
@@ -32,10 +31,10 @@ echo $dirlist
 echo $etc
 
 # -nvt for simulation ,, to check if everythings is safely linked
-#stow --adopt -nvt ~ $dirlist
-#stow --adopt -nvt /etc/ $etc
+stow --adopt -nvt ~ $dirlist
+stow --adopt -nvt /etc/ $etc
 #stow * -nvt ~ $dirlist
 
 # -vt for actual linking
-stow --adopt -vt ~ $dirlist
-stow --adopt -vt /etc/ $etc
+#stow --adopt -vt ~ $dirlist
+#stow --adopt -vt /etc/ $etc

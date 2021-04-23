@@ -44,6 +44,7 @@
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
                 term-mode-hook
@@ -433,7 +434,9 @@
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
-  (lsp-ui-doc-position 'bottom))
+  (lsp-ui-doc-position 'bottom)
+  (lsp-ui-doc-max-height '10)
+  (lsp-ui-doc-max-width '140))
 
 (use-package treemacs
   :ensure t
@@ -588,7 +591,7 @@
         '(("d" "default" plain (function org-roam-capture--get-point)
 	   "%?"
            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
-           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n--- \n- References : \n\n- Questions : \n--- \n"
+           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
            :unnarrowed t)))
 )
 
@@ -602,11 +605,3 @@
 (use-package ox-hugo
   :ensure t
   :after ox)
-
-(defun jethro/org-roam-export-all ()
-  "Re-exports all Org-roam files to Hugo markdown."
-  (interactive)
-  (dolist (f (org-roam--list-all-files))
-    (with-current-buffer (find-file f)
-      (when (s-contains? "SETUPFILE" (buffer-string))
-        (org-hugo-export-wim-to-md)))))

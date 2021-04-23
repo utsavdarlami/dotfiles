@@ -1,11 +1,10 @@
 # Dotfiles
 
 - **Save your config before trying**
-- Need
-  - zsh
-  - bspwm [current WM]
+- Configs for 
   - [alacritty](https://github.com/alacritty/alacritty) [current Terminal Emulator]
-  - neofetch
+  - bspwm [current WM]
+  - [pfetch](https://github.com/dylanaraps/pfetch)
   - polybar
   - vim
   - neovim
@@ -15,6 +14,7 @@
   - mononoki regualr font
   - ncmpcpp
   - zathura
+  - zsh
 
 - Install [stow](https://www.gnu.org/software/stow/manual/stow.html#Introduction)
 

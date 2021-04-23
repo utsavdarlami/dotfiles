@@ -144,7 +144,7 @@ compinit
 #
 #pfetch 
 PF_INFO="ascii title os host kernel shell wm editor uptime memory" PF_ASCII="kiss" pfetch
-/home/felladog/Desktop/Workspace/grepy/gre2.py
+#/home/felladog/Desktop/Workspace/grepy/gre2.py
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
@@ -173,4 +173,11 @@ vterm_printf(){
     else
         printf "\e]%s\e\\" "$1"
     fi
+}
+
+# nvm 
+load_nvm(){
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
