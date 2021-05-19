@@ -174,6 +174,8 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " startufy the fancy start  screen for vim
 Plug 'mhinz/vim-startify'
 
+Plug 'karoliskoncevicius/vim-sendtowindow'
+
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
 
@@ -366,6 +368,8 @@ nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 nmap ,c :Commands<CR>
 " Command history
 nmap ,h :History:<CR>
+" Buffers 
+nmap <C-b> :Buffers<CR>
 
 " Deoplete -----------------------------
 

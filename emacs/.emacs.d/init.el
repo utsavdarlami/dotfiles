@@ -1,4 +1,5 @@
 (setq inhibit-startup-message t)
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
@@ -32,7 +33,7 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(package-initialize)
+(package-initialize)  ;; uncomment
 (unless package-archive-contents
  (package-refresh-contents))
 ;; Initialize use-package on non-Linux platforms
@@ -88,24 +89,6 @@
   :custom ((doom-modeline-height 15)))
 
 (use-package all-the-icons)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" default))
- '(global-command-log-mode t)
- '(ivy-mode t)
- '(package-selected-packages
-   '(ox-hugo cmds-menu evil-numbers ein org-roam dired-hide-dotfiles lsp-python-ms flycheck rustic all-the-icons-dired dired-single vterm eterm-256color treemacs-persp treemacs-magit treemacs-evil rust-mode evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company lsp-mode visual-fill-column org-bullets evil-magit magit counsel-projectile projectile undo-tree evil atom-one-dark-theme helpful counsel ivy-rich doom-themes which-key rainbow-delimiters one-themes use-package ivy doom-modeline command-log-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -269,8 +252,8 @@
 
   (setq org-agenda-files
 	'("~/Documents/org-notes/Tasks.org"
-	  "~/Documents/org-notes/Goals.org"
 	 ))
+;; "~/Documents/org-notes/Goals.org"
 
   (setq org-format-latex-options
       '(:foreground default
@@ -578,22 +561,23 @@
       (after-init . org-roam-mode)
       :custom
       (org-roam-directory "~/Documents/org-notes/")
-
       :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph))
+               ("C-c n g" . org-roam-graph)
+               ("C-c n b" . org-roam-switch-to-buffer))
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate)))
       :config
+      (setq org-roam-completion-system 'ivy)
       (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam-capture--get-point)
 	   "%?"
            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
-           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
-           :unnarrowed t)))
-)
+           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
+           :unnarrowed t))))
+
 
 (use-package ein)
 (use-package evil-numbers)
@@ -605,3 +589,65 @@
 (use-package ox-hugo
   :ensure t
   :after ox)
+
+(use-package ivy-posframe
+  :ensure t
+  :delight
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+  (ivy-posframe-mode 1))
+
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
+
+(use-package org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9080
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
+(require 'org-roam-protocol)
+
+(use-package dashboard
+  :ensure t
+  :config
+  (setq dashboard-banner-logo-title "Welcome")
+  (setq dashboard-startup-banner "~/.emacs.d/pc.png")
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-items '((recents  . 5)
+                         (projects . 5)
+                         (bookmarks . 5)
+                         (agenda . 5)))
+  (setq dashboard-footer-messages '("Happy learning!"))
+
+  (dashboard-setup-startup-hook))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
