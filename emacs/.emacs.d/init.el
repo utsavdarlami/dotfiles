@@ -464,16 +464,26 @@
 
 (use-package lsp-ivy)
 
+;; (smartparens-global-mode t)
+
 (use-package company
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :after (:any lsp-mode org-mode org-roam-mode)
+  :hook
+  ((lsp-mode . company-mode)
+   (org-mode . company-mode)
+   (org-roam-mode . company-mode))
   :bind (:map company-active-map
          ("<tab>" . company-complete-selection))
         (:map lsp-mode-map
          ("<tab>" . company-indent-or-complete-common))
   :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-minimum-prefix-length 2)
+  (company-idle-delay 0.25)
+  (add-to-list 'company-backends 'company-capf)
+  (setq completion-ignore-case t)
+  )
+
+(setq completion-ignore-case t)
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
@@ -554,7 +564,6 @@
 ;;   ;; (dap-python-debugger 'debugpy)
 ;;   ;; :config
 ;;   ;; (require 'dap-python))
-
 (use-package org-roam
       :ensure t
       :hook
@@ -570,14 +579,15 @@
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate)))
       :config
-      (setq org-roam-completion-system 'ivy)
+      (setq org-roam-auto-replace-fuzzy-links nil)
+      (setq org-roam-completion-everywhere t)
       (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam-capture--get-point)
 	   "%?"
            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
            :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
-           :unnarrowed t))))
-
+           :unnarrowed t)))
+      )
 
 (use-package ein)
 (use-package evil-numbers)
@@ -594,7 +604,7 @@
   :ensure t
   :delight
   :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
   (ivy-posframe-mode 1))
 
 (use-package org-download
@@ -624,18 +634,18 @@
 (use-package dashboard
   :ensure t
   :config
-  (setq dashboard-banner-logo-title "Welcome")
+  (setq dashboard-banner-logo-title "Sh.........")
   (setq dashboard-startup-banner "~/.emacs.d/pc.png")
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
+  (setq dashboard-projects-backend 'projectile) 
   (setq dashboard-items '((recents  . 5)
-                         (projects . 5)
+                         (projects . 3)
                          (bookmarks . 5)
                          (agenda . 5)))
   (setq dashboard-footer-messages '("Happy learning!"))
 
   (dashboard-setup-startup-hook))
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -651,3 +661,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(use-package pdf-tools
+ :pin manual ;; manually update
+ :config
+ ;; initialise
+ (pdf-tools-install)
+ ;; open pdfs scaled to fit page
+ (setq-default pdf-view-display-size 'fit-page)
+ ;; automatically annotate highlights
+ (setq pdf-annot-activate-created-annotations t)
+ ;; use normal isearch
+ (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
