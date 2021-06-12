@@ -1,3 +1,5 @@
+execute_on_song_change="~/.ncmpcpp/ncmpcpp-ueberzug/./ncmpcpp_cover_art.sh"
+
 mpd_music_dir = "~/Music/"
 #lyrics_directory = "~/.ncmpcpp/lyrics"
 
@@ -79,7 +81,6 @@ color2 = "magenta"
 # song_list_format = "(2)[magenta]{} (7)[blue]{t|f} (5)[green]{a} (5)[red]{l}"
 
 #execute_on_song_change="~/.ncmpcpp/art.sh && notify-send "Now Playing" "$(mpc current)" -i /tmp/cover.png"
-execute_on_song_change="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp_cover_art.sh"
 
 song_status_format = "$b$7♫ $2%a $4⟫$3⟫ $8%t $4⟫$3⟫ $5%b "
 song_window_title_format = " {%a} - {%t}"
