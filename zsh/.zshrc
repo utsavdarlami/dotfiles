@@ -124,6 +124,9 @@ alias dual_monitor_n="bash ~/.screenlayout/n_fine.sh"
 alias dual_monitor_n_left="bash ~/.screenlayout/n_l_r.sh"
 alias single_monitor_n="bash ~/.screenlayout/n_single.sh"
 
+# running the hugo blog server locally
+alias blog_serve="cd ~/Documents/org_blog && hugo server -D"
+
 # git alias
 alias gs="git status"
 alias ga="git add"
@@ -149,6 +152,9 @@ PF_INFO="ascii title os host kernel shell wm editor uptime memory" PF_ASCII="kis
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
 export PATH=/home/felladog/.gem/ruby/2.7.0/bin:$PATH
+
+# MPD
+export MPD_PORT=6900
 
 # cheat.sh 
 function cheat(){ curl cheat.sh/"$@"; }
