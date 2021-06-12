@@ -487,10 +487,9 @@
   (company-minimum-prefix-length 2)
   (company-idle-delay 0.25)
   (add-to-list 'company-backends 'company-capf)
-  (setq completion-ignore-case t)
-  )
+  (setq completion-ignore-case t))
 
-(setq completion-ignore-case t)
+;; (setq completion-ignore-case t)
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
@@ -552,25 +551,38 @@
         rustic-lsp-server 'rust-analyzer
         rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
 
+
 (use-package lsp-python-ms
-   :ensure t
-   :init (setq lsp-python-ms-auto-install-server t)
-   :hook (python-mode . (lambda ()
-                           (require 'lsp-python-ms)
-                           (lsp-deferred)))  ; or lsp-deferred
-  :init
-  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp-deferred))))  ; or lsp-deferred
+
+
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp-deferred))))  ; or lsp-deferred
 
 (use-package python-mode
    :ensure nil 
    :hook (python-mode . lsp-deferred)
    :custom
    ;; NOTE: Set these if Python 3 is called "python3" on your system!
-   (python-shell-interpreter "python3"))
+   (python-shell-interpreter "python"))
 ;;   ;; (dap-python-executable "python3")
 ;;   ;; (dap-python-debugger 'debugpy)
 ;;   ;; :config
 ;;   ;; (require 'dap-python))
+
+(use-package pyvenv
+  :config
+  (setenv "WORKON_HOME" "~/anaconda3/envs")
+  (pyvenv-mode 1)
+  (pyvenv-tracking-mode 1))
+
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 
@@ -677,7 +689,7 @@
  '(org-agenda-files
    '("~/Documents/org-notes/2021-06-01--02-34-32Z--gan.org" "~/Documents/org-notes/2021-04-10--04-25-11Z--image_processing.org" "~/Documents/org-notes/2021-05-28--12-02-59Z--image_convolution.org" "~/Documents/org-notes/Tasks.org"))
  '(package-selected-packages
-   '(seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
+   '(company-jedi lsp-pyright seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
  '(rustic-ansi-faces
    ["#282828" "#fb4934" "#b8bb26" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])
  '(vc-annotate-background "#282828")
@@ -725,3 +737,8 @@
   :ensure t
   :commands (dired-sidebar-toggle-sidebar))
 ;; inti.el ends here
+
+;; (defun my/python-mode-hook ()
+;;   (add-to-list 'company-backends 'company-jedi))
+
+;; (add-hook 'python-mode-hook 'my/python-mode-hook)
