@@ -21,7 +21,13 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
 
-(load-theme 'atom-one-dark t)
+;; theme
+;; (load-theme 'atom-one-dark t)
+  
+;;; dark variants
+;; Range:   233 (darkest) ~ 239 (lightest)
+;; Default: 237
+(load-theme 'gruvbox-dark-medium t)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -190,7 +196,7 @@
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/Desktop/Workspace")
-    (setq projectile-project-search-path '("~/Desktop/Workspace")))
+    (setq projectile-project-search-path '("~/Desktop/Workspace" "~/Desktop/ML")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
@@ -399,6 +405,7 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("py1" . "src python :results output"))
 
 ;; ----- 
 
@@ -564,6 +571,9 @@
 ;;   ;; (dap-python-debugger 'debugpy)
 ;;   ;; :config
 ;;   ;; (require 'dap-python))
+(require 'org-id)
+(setq org-id-link-to-org-use-id t)
+
 (use-package org-roam
       :ensure t
       :hook
@@ -581,11 +591,13 @@
       :config
       (setq org-roam-auto-replace-fuzzy-links nil)
       (setq org-roam-completion-everywhere t)
+      (setq org-roam-prefer-id-links t)
+      (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
       (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam-capture--get-point)
 	   "%?"
            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
-           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
+           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
            :unnarrowed t)))
       )
 
@@ -629,6 +641,7 @@
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20))
 
+
 (require 'org-roam-protocol)
 
 (use-package dashboard
@@ -652,9 +665,43 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("845489fb9f7547e6348a80f942402fc7ac7c6854b0accabc49aeddd8cd4a2bd9" "171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "0466adb5554ea3055d0353d363832446cd8be7b799c39839f387abb631ea0995" "f302eb9c73ead648aecdc1236952b1ceb02a3e7fcd064073fb391c840ef84bca" "e6a2832325900ae153fd88db2111afac2e20e85278368f76f36da1f4d5a8151e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "1a52e224f2e09af1084db19333eb817c23bceab5e742bf93caacbfea5de6b4f6" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "9687f29504a36c0b6b46cf654117f2f2ab3e73b909476ccb14cdde2bf990fa3e" "2146060448f4fe0838a378045a731e92275cdce1a1f45ddbf8696bb62da59dc5" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" default))
+ '(exwm-floating-border-color "#504945")
  '(helm-minibuffer-history-key "M-p")
+ '(highlight-tail-colors ((("#363627" "#363627") . 0) (("#323730" "#323730") . 20)))
+ '(jdee-db-active-breakpoint-face-colors (cons "#0d1011" "#fabd2f"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#0d1011" "#b8bb26"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#0d1011" "#928374"))
+ '(objed-cursor-color "#fb4934")
+ '(org-agenda-files
+   '("~/Documents/org-notes/2021-06-01--02-34-32Z--gan.org" "~/Documents/org-notes/2021-04-10--04-25-11Z--image_processing.org" "~/Documents/org-notes/2021-05-28--12-02-59Z--image_convolution.org" "~/Documents/org-notes/Tasks.org"))
  '(package-selected-packages
-   '(dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired)))
+   '(seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
+ '(rustic-ansi-faces
+   ["#282828" "#fb4934" "#b8bb26" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])
+ '(vc-annotate-background "#282828")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#b8bb26")
+    (cons 40 "#cebb29")
+    (cons 60 "#e3bc2c")
+    (cons 80 "#fabd2f")
+    (cons 100 "#fba827")
+    (cons 120 "#fc9420")
+    (cons 140 "#fe8019")
+    (cons 160 "#ed611a")
+    (cons 180 "#dc421b")
+    (cons 200 "#cc241d")
+    (cons 220 "#db3024")
+    (cons 240 "#eb3c2c")
+    (cons 260 "#fb4934")
+    (cons 280 "#e05744")
+    (cons 300 "#c66554")
+    (cons 320 "#ac7464")
+    (cons 340 "#7c6f64")
+    (cons 360 "#7c6f64")))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -666,10 +713,15 @@
  :pin manual ;; manually update
  :config
  ;; initialise
- (pdf-tools-install)
+ ;; (pdf-tools-install)
  ;; open pdfs scaled to fit page
  (setq-default pdf-view-display-size 'fit-page)
  ;; automatically annotate highlights
  (setq pdf-annot-activate-created-annotations t)
  ;; use normal isearch
  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar))
+;; inti.el ends here
