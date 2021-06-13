@@ -446,7 +446,7 @@
        (treemacs-git-mode 'simple))))
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
+	("M-0" . treemacs-display-current-project-exclusively)
         ("C-x t 1"   . treemacs-delete-other-windows)
         ("C-x t t"   . treemacs)
         ("C-x t B"   . treemacs-bookmark)
@@ -736,6 +736,7 @@
 (use-package dired-sidebar
   :ensure t
   :commands (dired-sidebar-toggle-sidebar))
+
 ;; inti.el ends here
 
 ;; (defun my/python-mode-hook ()

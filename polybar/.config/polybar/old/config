@@ -36,7 +36,7 @@ bd = #e53935
 
 [global/wm]
 
-include-file = ~/.config/polybar/modules.ini
+include-file = ~/.config/polybar/old/modules.ini
 margin-top = 0
 margin-bottom = 0
 
@@ -55,20 +55,20 @@ line-color =
 border-size           = 0
 border-color          = #00000000 
 
-width = 28%
-height = 27
+width = 18%
+height = 30
 offset-x = 3
 offset-y = 3
 
 border-right-size = 0
 border-left-size = 2
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;0
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;0
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;0
-font-5 = "icomoon\-feather:size=9;2"
+font-0 = Hasklig:style=Regular:pixelsize=11;1
+font-1 = FontAwesome:size:11
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=10;0
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=10;0
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=10;0
+font-5 = "icomoon\-feather:size=10;2"
 
 radius = 2.0
 fixed-center = true 
@@ -80,9 +80,9 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 1
 
-modules-left = sysmenu battery_i calendar memory
+modules-left = sysmenu mpd
 
-;modules-center = mpd date 
+modules-center =
 ;modules-center = battery_bar memory
 modules-right =  
 ;modules-right = 
@@ -91,7 +91,7 @@ modules-right =
 ;
 ;override-redirect = true
 
-scroll-up = pactl set-sink-volume 0 +2% 
+;scroll-up = pactl set-sink-volume 0 +2% 
 
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
@@ -112,11 +112,11 @@ line-size = 0
 line-color = 
 
 width = 20%
-height = 27
+height = 30
 radius = 2.0
 fixed-center = true 
 offset-x = 40% 
-offset-y = 3 
+offset-y = 2 
 
 border-size           = 0
 border-color          = #00000000 
@@ -133,16 +133,17 @@ module-margin-left = 0
 module-margin-right = 0
 
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
-font-5 = "icomoon\-feather:size=9;2"
+font-0 = Hasklig:style=Regular:pixelsize=11;1
+font-1 = "icomoon\-feather:size=11;2"
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=10;2
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=10;2
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=10;2
+;font-5 = FontAwesome:size:11
 
 modules-left =
 modules-center = bspwm 
-modules-right = pulseaudio 
+;modules-center = 
+modules-right = 
 
 
 ;scroll-up = 
@@ -174,13 +175,13 @@ bottom  = True
 border-size           = 0
 border-color          = #00000000 
 
-width = 29%
-height = 27
+width = 16%
+height = 30
 
 
 fixed-center = true 
-offset-x = 70.5% 
-offset-y = 3
+offset-x = 83.7% 
+offset-y = 2
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -191,20 +192,20 @@ line-color =
 padding-left = 1
 padding-right = 1
 
-module-margin-left = 0
-module-margin-right = 1
+module-margin-left = 1
+module-margin-right = 0
 
-font-0 = Hasklig:style=Regular:pixelsize=10;1
-font-1 = FontAwesome:size:10
-font-2 = Font Awesome 5 Free Regular:style=Regular:size=9;2
-font-3 = Font Awesome 5 Free Solid:style=Solid:size=9;2
-font-4 = Font Awesome 5 Brands Regular:style=Regular:size=9;2
-font-5 = "icomoon\-feather:size=9;2"
+font-0 = Hasklig:style=Regular:pixelsize=12;1
+font-1 = FontAwesome:size:11
+font-2 = Font Awesome 5 Free Regular:style=Regular:size=11;2
+font-3 = Font Awesome 5 Free Solid:style=Solid:size=11;2
+font-4 = Font Awesome 5 Brands Regular:style=Regular:size=11;2
+font-5 = "icomoon\-feather:size=11;2"
 
-modules-left = pulseaudio
-modules-center = mpd 
+modules-left = 
+modules-center = 
 ;modules-center = battery_bar memory
-modules-right = 
+modules-right = pulseaudio calendar date memory
 ;modules-right =  battery_i date calendar
 
 tray-position = right
@@ -213,7 +214,8 @@ tray-padding = 0
 tray-detached = false
 tray-maxsize = 19
 
-true tray-background = #0063ff
+;true tray-background = #0063ff
+;tray-background = #0063ff
 tray-offset-x = 0
 tray-offset-y = 0
 tray-reparent = true

@@ -7,11 +7,14 @@ killall -q polybar
 while pgrep -u 1000 -x polybar >/dev/null; do sleep 1; done
 
 # Launch Polybar, using default config location ~/.config/polybar/config
-polybar bottomleft &
 
-polybar bottommiddle &
+DIR="$HOME/.config/polybar/old"
 
-polybar bottomright;
+polybar -q bottomleft -c "$DIR"/config &
+
+polybar -q bottommiddle -c "$DIR"/config &
+
+polybar -q bottomright -c "$DIR"/config &
 
 echo Polybar launched...
 
