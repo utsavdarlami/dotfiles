@@ -21,33 +21,56 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
 
-;; theme
-;; (load-theme 'atom-one-dark t)
-  
-;;; dark variants
-;; Range:   233 (darkest) ~ 239 (lightest)
-;; Default: 237
-(load-theme 'gruvbox-dark-medium t)
-
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Package System Setup
+;; straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+
+;; old config
 ;; Initialize package sources
-(require 'package)
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; (require 'package)
 
-(package-initialize)  ;; uncomment
-(unless package-archive-contents
- (package-refresh-contents))
-;; Initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-   (package-install 'use-package))
+;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;;                          ("org" . "https://orgmode.org/elpa/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+;; (package-initialize)  ;; uncomment
+;; (unless package-archive-contents
+;;  (package-refresh-contents))
+
+;; ;; Initialize use-package on non-Linux platforms
+;; (unless (package-installed-p 'use-package)
+;;    (package-install 'use-package))
+
+;; (require 'use-package)
+;; (setq use-package-always-ensure t)
+;; Package System Setup End 
+
+;; theme
+(straight-use-package 'kaolin-themes)
+;;; dark variants
+;; Range:   233 (darkest) ~ 239 (lightest)
+;; Default: 237
+;; (load-theme 'atom-one-dark t)
+;; (load-theme 'gruvbox-dark-medium t)
+(load-theme 'kaolin-light t)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -68,7 +91,7 @@
 (global-undo-tree-mode t)
 
 (use-package flycheck
-  :ensure t
+  :straight t
   :init (global-flycheck-mode))
 
 (use-package ivy
@@ -90,7 +113,7 @@
   (ivy-mode 1))
 
 (use-package doom-modeline
-  :ensure t
+  :straight t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
@@ -105,20 +128,20 @@
   :config
   (setq which-key-idle-delay 1))
 
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
-
 (use-package counsel
+  :straight t
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
          ("C-x C-f" . counsel-find-file)
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history)))
-	 ;:config
-	 ;(counsel-mode 1))
+	 ;; :config
+	 ;; (counsel-mode 1))
 	 
+(use-package ivy-rich
+  :straight t
+  :init (ivy-rich-mode 1))
+
 
 ;(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 
@@ -419,17 +442,26 @@
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-enable-indentation nil)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-diagnostics-enable nil)
+  (lsp-clients-clangd-args '("--header-insertion=never")))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
+  (lsp-ui-doc-enable nil)
   (lsp-ui-doc-position 'bottom)
   (lsp-ui-doc-max-height '10)
-  (lsp-ui-doc-max-width '140))
+  (lsp-ui-doc-max-width '140)
+  )
 
 (use-package treemacs
-  :ensure t
+  :straight t
   :defer t
   :init
   (with-eval-after-load 'winum
@@ -458,15 +490,15 @@
 
 (use-package treemacs-evil
   :after treemacs evil
-  :ensure t)
+  :straight t)
 
 (use-package treemacs-magit
   :after treemacs magit
-  :ensure t)
+  :straight t)
 
 (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
   :after treemacs persp-mode ;;or perspective vs. persp-mode
-  :ensure t
+  :straight t
   :config (treemacs-set-scope-type 'perspectives))
 
 (use-package lsp-ivy)
@@ -517,7 +549,7 @@
   (setq vterm-max-scrollback 10000))
 
 (use-package dired
-  :ensure nil
+  :straight nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
@@ -553,7 +585,7 @@
 
 
 (use-package lsp-python-ms
-  :ensure t
+  :straight t
   :init (setq lsp-python-ms-auto-install-server t)
   :hook (python-mode . (lambda ()
                           (require 'lsp-python-ms)
@@ -561,13 +593,13 @@
 
 
 ;; (use-package lsp-pyright
-;;   :ensure t
+;;   :straight t
 ;;   :hook (python-mode . (lambda ()
 ;;                           (require 'lsp-pyright)
 ;;                           (lsp-deferred))))  ; or lsp-deferred
 
 (use-package python-mode
-   :ensure nil 
+   :straight nil 
    :hook (python-mode . lsp-deferred)
    :custom
    ;; NOTE: Set these if Python 3 is called "python3" on your system!
@@ -586,32 +618,32 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 
-(use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/Documents/org-notes/")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph)
-               ("C-c n b" . org-roam-switch-to-buffer))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate)))
-      :config
-      (setq org-roam-auto-replace-fuzzy-links nil)
-      (setq org-roam-completion-everywhere t)
-      (setq org-roam-prefer-id-links t)
-      (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
-      (setq org-roam-capture-templates
-        '(("d" "default" plain (function org-roam-capture--get-point)
-	   "%?"
-           :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
-           :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
-           :unnarrowed t)))
-      )
+;; (use-package org-roam
+;;       :straight t
+;;       :hook
+;;       (after-init . org-roam-mode)
+;;       :custom
+;;       (org-roam-directory "~/Documents/org-notes/")
+;;       :bind (:map org-roam-mode-map
+;;               (("C-c n l" . org-roam)
+;;                ("C-c n f" . org-roam-find-file)
+;;                ("C-c n g" . org-roam-graph)
+;;                ("C-c n b" . org-roam-switch-to-buffer))
+;;               :map org-mode-map
+;;               (("C-c n i" . org-roam-insert))
+;;               (("C-c n I" . org-roam-insert-immediate)))
+;;       :config
+;;       (setq org-roam-auto-replace-fuzzy-links nil)
+;;       (setq org-roam-completion-everywhere t)
+;;       (setq org-roam-prefer-id-links t)
+;;       (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
+;;       (setq org-roam-capture-templates
+;;         '(("d" "default" plain (function org-roam-capture--get-point)
+;; 	   "%?"
+;;            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
+;;            :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
+;;            :unnarrowed t)))
+;;       )
 
 (use-package ein)
 (use-package evil-numbers)
@@ -621,11 +653,11 @@
 (set-frame-parameter (selected-frame) 'alpha '(98 . 96))
 
 (use-package ox-hugo
-  :ensure t
+  :straight t
   :after ox)
 
 (use-package ivy-posframe
-  :ensure t
+  :straight t
   :delight
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
@@ -638,26 +670,26 @@
         (("s-Y" . org-download-screenshot)
          ("s-y" . org-download-yank))))
 
-(use-package org-roam-server
-  :ensure t
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 9080
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
+;; (use-package org-roam-server
+;;   :straight t
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;;         org-roam-server-port 9080
+;;         org-roam-server-authenticate nil
+;;         org-roam-server-export-inline-images t
+;;         org-roam-server-serve-files nil
+;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;;         org-roam-server-network-poll t
+;;         org-roam-server-network-arrows nil
+;;         org-roam-server-network-label-truncate t
+;;         org-roam-server-network-label-truncate-length 60
+;;         org-roam-server-network-label-wrap-length 20))
 
 
-(require 'org-roam-protocol)
+;; (require 'org-roam-protocol)
 
 (use-package dashboard
-  :ensure t
+  :straight t
   :config
   (setq dashboard-banner-logo-title "Sh.........")
   (setq dashboard-startup-banner "~/.emacs.d/pc.png")
@@ -677,9 +709,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#282a36" "#ff5c57" "#5af78e" "#f3f99d" "#57c7ff" "#ff6ac1" "#9aedfe" "#f9f9f9"])
+ '(company-quickhelp-color-background "#3E4452")
+ '(company-quickhelp-color-foreground "#ABB2BF")
  '(custom-safe-themes
-   '("845489fb9f7547e6348a80f942402fc7ac7c6854b0accabc49aeddd8cd4a2bd9" "171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "0466adb5554ea3055d0353d363832446cd8be7b799c39839f387abb631ea0995" "f302eb9c73ead648aecdc1236952b1ceb02a3e7fcd064073fb391c840ef84bca" "e6a2832325900ae153fd88db2111afac2e20e85278368f76f36da1f4d5a8151e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "1a52e224f2e09af1084db19333eb817c23bceab5e742bf93caacbfea5de6b4f6" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "9687f29504a36c0b6b46cf654117f2f2ab3e73b909476ccb14cdde2bf990fa3e" "2146060448f4fe0838a378045a731e92275cdce1a1f45ddbf8696bb62da59dc5" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" default))
+   '("3d54650e34fa27561eb81fc3ceed504970cc553cfd37f46e8a80ec32254a3ec3" "1d44ec8ec6ec6e6be32f2f73edf398620bb721afeed50f75df6b12ccff0fbb15" "f00a605fb19cb258ad7e0d99c007f226f24d767d01bf31f3828ce6688cbdeb22" "e266d44fa3b75406394b979a3addc9b7f202348099cfde69e74ee6432f781336" "06ed754b259cb54c30c658502f843937ff19f8b53597ac28577ec33bb084fa52" "e8567ee21a39c68dbf20e40d29a0f6c1c05681935a41e206f142ab83126153ca" "c95813797eb70f520f9245b349ff087600e2bd211a681c7a5602d039c91a6428" "2ce76d65a813fae8cfee5c207f46f2a256bac69dacbb096051a7a8651aa252b0" "11cc65061e0a5410d6489af42f1d0f0478dbd181a9660f81a692ddc5f948bf34" "733ef3e3ffcca378df65a5b28db91bf1eeb37b04d769eda28c85980a6df5fa37" "d9a28a009cda74d1d53b1fbd050f31af7a1a105aa2d53738e9aa2515908cac4c" "6128465c3d56c2630732d98a3d1c2438c76a2f296f3c795ebda534d62bb8a0e3" "d516f1e3e5504c26b1123caa311476dc66d26d379539d12f9f4ed51f10629df3" "249e100de137f516d56bcf2e98c1e3f9e1e8a6dce50726c974fa6838fbfcec6b" "8f20a5dba51c3032066f9bdd636211c22cd858cbb439bbe8e042016f3d215142" "3c7a784b90f7abebb213869a21e84da462c26a1fda7e5bd0ffebf6ba12dbd041" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "845489fb9f7547e6348a80f942402fc7ac7c6854b0accabc49aeddd8cd4a2bd9" "171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "0466adb5554ea3055d0353d363832446cd8be7b799c39839f387abb631ea0995" "f302eb9c73ead648aecdc1236952b1ceb02a3e7fcd064073fb391c840ef84bca" "e6a2832325900ae153fd88db2111afac2e20e85278368f76f36da1f4d5a8151e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "1a52e224f2e09af1084db19333eb817c23bceab5e742bf93caacbfea5de6b4f6" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "9687f29504a36c0b6b46cf654117f2f2ab3e73b909476ccb14cdde2bf990fa3e" "2146060448f4fe0838a378045a731e92275cdce1a1f45ddbf8696bb62da59dc5" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" default))
  '(exwm-floating-border-color "#504945")
+ '(fci-rule-color "#e2e4e5")
  '(helm-minibuffer-history-key "M-p")
  '(highlight-tail-colors ((("#363627" "#363627") . 0) (("#323730" "#323730") . 20)))
  '(jdee-db-active-breakpoint-face-colors (cons "#0d1011" "#fabd2f"))
@@ -689,7 +726,10 @@
  '(org-agenda-files
    '("~/Documents/org-notes/2021-06-01--02-34-32Z--gan.org" "~/Documents/org-notes/2021-04-10--04-25-11Z--image_processing.org" "~/Documents/org-notes/2021-05-28--12-02-59Z--image_convolution.org" "~/Documents/org-notes/Tasks.org"))
  '(package-selected-packages
-   '(company-jedi lsp-pyright seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
+   '(kaolin-themes company-jedi lsp-pyright seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
+ '(pdf-view-midnight-colors (cons "#f9f9f9" "#282a36"))
+ '(pos-tip-background-color "#191D26")
+ '(pos-tip-foreground-color "#d4d4d6")
  '(rustic-ansi-faces
    ["#282828" "#fb4934" "#b8bb26" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])
  '(vc-annotate-background "#282828")
@@ -722,7 +762,8 @@
  )
 
 (use-package pdf-tools
- :pin manual ;; manually update
+ ;; :pin manual ;; manually update
+ :straight t
  :config
  ;; initialise
  ;; (pdf-tools-install)
@@ -734,8 +775,8 @@
  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (use-package dired-sidebar
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar))
+  :straight t
+  :commands (dired-sidebar-toggle-sidebar))   
 
 ;; inti.el ends here
 
@@ -743,3 +784,11 @@
 ;;   (add-to-list 'company-backends 'company-jedi))
 
 ;; (add-hook 'python-mode-hook 'my/python-mode-hook)
+
+(setq
+  mpc-browser-tags '(Filename)
+  mpc-host "0.0.0.0:6900"
+  mpc-songs-format "%-20{Artist} %26{Title} %40{Album} %4{Time}")
+
+(global-set-key (kbd "C-c C-p") 'mpc-play-at-point)
+;; song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
