@@ -143,6 +143,13 @@
   :init (ivy-rich-mode 1))
 
 
+(use-package ivy-posframe
+  :straight t
+  :delight
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  (ivy-posframe-mode 1))
+
 ;(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 
 (use-package helpful
@@ -618,75 +625,78 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 
-;; (use-package org-roam
-;;       :straight t
-;;       :hook
-;;       (after-init . org-roam-mode)
-;;       :custom
-;;       (org-roam-directory "~/Documents/org-notes/")
-;;       :bind (:map org-roam-mode-map
-;;               (("C-c n l" . org-roam)
-;;                ("C-c n f" . org-roam-find-file)
-;;                ("C-c n g" . org-roam-graph)
-;;                ("C-c n b" . org-roam-switch-to-buffer))
-;;               :map org-mode-map
-;;               (("C-c n i" . org-roam-insert))
-;;               (("C-c n I" . org-roam-insert-immediate)))
-;;       :config
-;;       (setq org-roam-auto-replace-fuzzy-links nil)
-;;       (setq org-roam-completion-everywhere t)
-;;       (setq org-roam-prefer-id-links t)
-;;       (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
-;;       (setq org-roam-capture-templates
-;;         '(("d" "default" plain (function org-roam-capture--get-point)
-;; 	   "%?"
-;;            :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)" 
-;;            :head "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+roam_tags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n"
-;;            :unnarrowed t)))
-;;       )
+(use-package org-roam
+  :straight '(org-roam :host github
+		       :branch "v2"
+		       :repo "org-roam/org-roam")
+  :custom
+  (org-roam-directory "~/Documents/org-notes/")
+  (org-roam-file-extensions '("org"))
+  :bind (:map global-map
+	      (("C-c n l" . org-roam-buffer-toggle)
+	       ("C-c n f" . org-roam-node-find)
+	       ("C-c n g" . org-roam-graph))
+	      :map org-mode-map
+	      (("C-c n i" . org-roam-node-insert))
+	      (("C-c n I" . org-roam-insert-immediate)))
+  :config
+  (setq org-roam-auto-replace-fuzzy-links nil)
+  (setq org-roam-completion-everywhere t)
+  (setq org-roam-prefer-id-links t)
+  (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
+  (setq org-roam-capture-templates
+	'(("d" "default" plain
+	   "%?"
+	   :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+			      "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+filetags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n")
+	   :unnarrowed t)))
+  (org-roam-setup) 
+  )
+
+(setq org-roam-v2-ack t)
+
+;; for org-roam-buffer-toggle
+(add-to-list 'display-buffer-alist
+               '(("\\*org-roam\\*"
+                  (display-buffer-in-direction)
+                  (direction . right)
+                  (window-width . 0.23)
+                  (window-height . fit-window-to-buffer))))
+
+;; (use-package org-roam-server
+;;   :straight t
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;; 	org-roam-server-port 9080
+;; 	org-roam-server-authenticate nil
+;; 	org-roam-server-export-inline-images t
+;; 	org-roam-server-serve-files nil
+;; 	org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;; 	org-roam-server-network-poll t
+;; 	org-roam-server-network-arrows nil
+;; 	org-roam-server-network-label-truncate t
+;; 	org-roam-server-network-label-truncate-length 60
+;; 	org-roam-server-network-label-wrap-length 20))
+
+(require 'org-roam-protocol)
+
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+	(("s-Y" . org-download-screenshot)
+	 ("s-y" . org-download-yank))))
+
+(use-package ox-hugo
+  :straight t
+  :after ox)
 
 (use-package ein)
 (use-package evil-numbers)
 (define-key evil-normal-state-map (kbd ", a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd ", x") 'evil-numbers/dec-at-pt)
 
-(set-frame-parameter (selected-frame) 'alpha '(98 . 96))
-
-(use-package ox-hugo
-  :straight t
-  :after ox)
-
-(use-package ivy-posframe
-  :straight t
-  :delight
-  :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (ivy-posframe-mode 1))
-
-(use-package org-download
-  :after org
-  :bind
-  (:map org-mode-map
-        (("s-Y" . org-download-screenshot)
-         ("s-y" . org-download-yank))))
-
-;; (use-package org-roam-server
-;;   :straight t
-;;   :config
-;;   (setq org-roam-server-host "127.0.0.1"
-;;         org-roam-server-port 9080
-;;         org-roam-server-authenticate nil
-;;         org-roam-server-export-inline-images t
-;;         org-roam-server-serve-files nil
-;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-;;         org-roam-server-network-poll t
-;;         org-roam-server-network-arrows nil
-;;         org-roam-server-network-label-truncate t
-;;         org-roam-server-network-label-truncate-length 60
-;;         org-roam-server-network-label-wrap-length 20))
-
-
-;; (require 'org-roam-protocol)
+(set-frame-parameter (selected-frame) 'alpha '(98 . 94))
 
 (use-package dashboard
   :straight t
@@ -697,9 +707,9 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-projects-backend 'projectile) 
   (setq dashboard-items '((recents  . 5)
-                         (projects . 3)
-                         (bookmarks . 5)
-                         (agenda . 5)))
+			  (projects . 3)
+			  (bookmarks . 5)
+			  (agenda . 5)))
   (setq dashboard-footer-messages '("Happy learning!"))
 
   (dashboard-setup-startup-hook))
@@ -762,17 +772,17 @@
  )
 
 (use-package pdf-tools
- ;; :pin manual ;; manually update
- :straight t
- :config
- ;; initialise
- ;; (pdf-tools-install)
- ;; open pdfs scaled to fit page
- (setq-default pdf-view-display-size 'fit-page)
- ;; automatically annotate highlights
- (setq pdf-annot-activate-created-annotations t)
- ;; use normal isearch
- (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+  ;; :pin manual ;; manually update
+  :straight t
+  :config
+  ;; initialise
+  ;; (pdf-tools-install)
+  ;; open pdfs scaled to fit page
+  (setq-default pdf-view-display-size 'fit-page)
+  ;; automatically annotate highlights
+  (setq pdf-annot-activate-created-annotations t)
+  ;; use normal isearch
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (use-package dired-sidebar
   :straight t
@@ -786,9 +796,9 @@
 ;; (add-hook 'python-mode-hook 'my/python-mode-hook)
 
 (setq
-  mpc-browser-tags '(Filename)
-  mpc-host "0.0.0.0:6900"
-  mpc-songs-format "%-20{Artist} %26{Title} %40{Album} %4{Time}")
+ mpc-browser-tags '(Filename)
+ mpc-host "0.0.0.0:6900"
+ mpc-songs-format "%-20{Artist} %26{Title} %40{Album} %4{Time}")
 
 (global-set-key (kbd "C-c C-p") 'mpc-play-at-point)
 ;; song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
