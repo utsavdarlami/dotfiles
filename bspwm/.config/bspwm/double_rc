@@ -10,7 +10,8 @@ mpd &
 feh --bg-scale ~/Pictures/Wallpaper/wallace.png &
 # Launch polybar
 #$HOME/.config/polybar_n/launch.sh &
-$HOME/.config/polybar/launch.sh &
+#$HOME/.config/polybar/launch.sh &
+$HOME/.config/polybar/shades/launch.sh &
 
 #bspc monitor eDP1 -s DP1
 bspc monitor DP1 -s eDP1
