@@ -8,16 +8,16 @@
 
 (menu-bar-mode -1)            ; Disable the menu bar
 
+;(hs-minor-mode 1)  ;enable hs minor mode hide/show code block
+
 ;; Set up the visible bell
 (setq visible-bell t)
 
 ;; Font Configuration ----------------------------------------------------------
-
+;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
 (set-face-attribute 'default nil :font "mononoki" :height 110)
-
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil :font "mononoki" :height 120 :weight 'regular)
-
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
 
@@ -65,12 +65,14 @@
 
 ;; theme
 (straight-use-package 'kaolin-themes)
+(straight-use-package 'doom-themes)
 ;;; dark variants
 ;; Range:   233 (darkest) ~ 239 (lightest)
 ;; Default: 237
 ;; (load-theme 'atom-one-dark t)
 ;; (load-theme 'gruvbox-dark-medium t)
 (load-theme 'kaolin-light t)
+;; (load-theme 'doom-gruvbox t)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -285,126 +287,138 @@
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
+  ;; timer notifiication sound
+  (setq org-clock-sound "~/.emacs.d/ping.wav")
 
   (setq org-agenda-files
 	'("~/Documents/org-notes/Tasks.org"
 	 ))
-;; "~/Documents/org-notes/Goals.org"
+  ;; "~/Documents/org-notes/Goals.org"
+  ;; setting org for latex 
+  (setq org-latex-compiler "xelatex")
+  (setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  ;; (setq org-latex-minted-options '(("bgcolor" "bg")))
 
   (setq org-format-latex-options
-      '(:foreground default
-        :background default
-        :scale 3.0
-        :html-foreground "Black"
-        :html-background "Transparent"
-        :html-scale 3.0
-        :matchers ("begin" "$1" "$$" "\\(" "\\[")))
+	'(:foreground default
+		      :background default
+		      :scale 3.0
+		      :html-foreground "Black"
+		      :html-background "Transparent"
+		      :html-scale 3.0
+		      :matchers ("begin" "$1" "$$" "\\(" "\\[")))
 
 
   (setq org-todo-keywords
-    '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+	  (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
 
   (setq org-tag-alist
-    '((:startgroup)
-       ; Put mutually exclusive tags here
-       (:endgroup)
-       ("@errand" . ?E)
-       ("@home" . ?H)
-       ("@work" . ?W)
-       ("agenda" . ?a)
-       ("planning" . ?p)
-       ("publish" . ?P)
-       ("batch" . ?b)
-       ("note" . ?n)
-       ("idea" . ?i)))
+	'((:startgroup)
+					; Put mutually exclusive tags here
+	  (:endgroup)
+	  ("@errand" . ?E)
+	  ("@home" . ?H)
+	  ("@work" . ?W)
+	  ("agenda" . ?a)
+	  ("planning" . ?p)
+	  ("publish" . ?P)
+	  ("batch" . ?b)
+	  ("note" . ?n)
+	  ("idea" . ?i)))
 
   (setq org-refile-targets
-    '(("Archive.org" :maxlevel . 1)
-      ("Tasks.org" :maxlevel . 1)))
+	'(("Archive.org" :maxlevel . 1)
+	  ("Tasks.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   ;; Configure custom agenda views
   (setq org-agenda-custom-commands
-   '(("d" "Dashboard"
-     ((agenda "" ((org-deadline-warning-days 7)))
-      (todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))
-      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+	'(("d" "Dashboard"
+	   ((agenda "" ((org-deadline-warning-days 7)))
+	    (todo "NEXT"
+		  ((org-agenda-overriding-header "Next Tasks")))
+	    (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
-    ("n" "Next Tasks"
-     ((todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))))
+	  ("n" "Next Tasks"
+	   ((todo "NEXT"
+		  ((org-agenda-overriding-header "Next Tasks")))))
 
-    ("W" "Work Tasks" tags-todo "+work-email")
+	  ("W" "Work Tasks" tags-todo "+work-email")
 
-    ;; Low-effort next actions
-    ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-     ((org-agenda-overriding-header "Low Effort Tasks")
-      (org-agenda-max-todos 20)
-      (org-agenda-files org-agenda-files)))
+	  ;; Low-effort next actions
+	  ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+	   ((org-agenda-overriding-header "Low Effort Tasks")
+	    (org-agenda-max-todos 20)
+	    (org-agenda-files org-agenda-files)))
 
-    ("w" "Workflow Status"
-     ((todo "WAIT"
-            ((org-agenda-overriding-header "Waiting on External")
-             (org-agenda-files org-agenda-files)))
-      (todo "REVIEW"
-            ((org-agenda-overriding-header "In Review")
-             (org-agenda-files org-agenda-files)))
-      (todo "PLAN"
-            ((org-agenda-overriding-header "In Planning")
-             (org-agenda-todo-list-sublevels nil)
-             (org-agenda-files org-agenda-files)))
-      (todo "BACKLOG"
-            ((org-agenda-overriding-header "Project Backlog")
-             (org-agenda-todo-list-sublevels nil)
-             (org-agenda-files org-agenda-files)))
-      (todo "READY"
-            ((org-agenda-overriding-header "Ready for Work")
-             (org-agenda-files org-agenda-files)))
-      (todo "ACTIVE"
-            ((org-agenda-overriding-header "Active Projects")
-             (org-agenda-files org-agenda-files)))
-      (todo "COMPLETED"
-            ((org-agenda-overriding-header "Completed Projects")
-             (org-agenda-files org-agenda-files)))
-      (todo "CANC"
-            ((org-agenda-overriding-header "Cancelled Projects")
-             (org-agenda-files org-agenda-files)))))))
+	  ("w" "Workflow Status"
+	   ((todo "WAIT"
+		  ((org-agenda-overriding-header "Waiting on External")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "REVIEW"
+		  ((org-agenda-overriding-header "In Review")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "PLAN"
+		  ((org-agenda-overriding-header "In Planning")
+		   (org-agenda-todo-list-sublevels nil)
+		   (org-agenda-files org-agenda-files)))
+	    (todo "BACKLOG"
+		  ((org-agenda-overriding-header "Project Backlog")
+		   (org-agenda-todo-list-sublevels nil)
+		   (org-agenda-files org-agenda-files)))
+	    (todo "READY"
+		  ((org-agenda-overriding-header "Ready for Work")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "ACTIVE"
+		  ((org-agenda-overriding-header "Active Projects")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "COMPLETED"
+		  ((org-agenda-overriding-header "Completed Projects")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "CANC"
+		  ((org-agenda-overriding-header "Cancelled Projects")
+		   (org-agenda-files org-agenda-files)))))))
 
   (setq org-capture-templates
-    `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
-           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
+	`(("t" "Tasks / Projects")
+	  ("tt" "Task" entry (file+olp "~/Documents/org-notes/Tasks.org" "Inbox")
+	   "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
-      ("i" "Ideas")
-      ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
-           "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
+	  ("i" "Ideas")
+	  ("ii" "Idea" entry (file+olp "~/Documents/org-notes/Ideas.org" "Ideas")
+	   "* TODO %?\n  %u\n  %a\n" :empty-lines 1)
 
-      ("j" "Journal Entries")
-      ("jj" "Journal" entry
-           (file+olp+datetree "~/Documents/org-notes/Journal.org")
-           "\n* %<%i:%m %p> - Journal :Journal:\n\n%?\n\n"
-           ;; ,(dw/read-file-as-string "~/notes/templates/daily.org")
-           :clock-in :clock-resume
-           :empty-lines 1)
+	  ("j" "Journal Entries")
+	  ("jj" "Journal" entry
+	   (file+olp+datetree "~/Documents/org-notes/Journal.org")
+	   "\n* %<%i:%m %p> - Journal :Journal:\n\n%?\n\n"
+	   ;; ,(dw/read-file-as-string "~/notes/templates/daily.org")
+	   :clock-in :clock-resume
+	   :empty-lines 1)
 
-      ("jm" "Meeting" entry
-           (file+olp+datetree " ~/Documents/org-notes/Journal.org")
-           "* %<%i:%m %p> - %a :meetings:\n\n%?\n\n"
-           :clock-in :clock-resume
-           :empty-lines 1)
+	  ("jm" "Meeting" entry
+	   (file+olp+datetree " ~/Documents/org-notes/Journal.org")
+	   "* %<%i:%m %p> - %a :meetings:\n\n%?\n\n"
+	   :clock-in :clock-resume
+	   :empty-lines 1)
 
-      ("w" "Workflows")
-      ("we" "Checking Email" entry (file+olp+datetree "~/Documents/org-notes/Journal.org")
-           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-      ))
+	  ("w" "Workflows")
+	  ("we" "Checking Email" entry (file+olp+datetree "~/Documents/org-notes/Journal.org")
+	   "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+	  ))
 
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil)))
-       
+  
 
   (efs/org-font-setup))
 
@@ -416,16 +430,16 @@
 
 (defun efs/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
+	visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column
   :hook (org-mode . efs/org-mode-visual-fill))
 
 (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)
-    (python . t)))
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -474,11 +488,11 @@
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
-   (progn
+  (progn
     (treemacs-filewatch-mode t)
     (treemacs-fringe-indicator-mode 'always)
     (pcase (cons (not (null (executable-find "git")))
-                 (not (null treemacs-python-executable)))
+		 (not (null treemacs-python-executable)))
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
@@ -486,11 +500,11 @@
   :bind
   (:map global-map
 	("M-0" . treemacs-display-current-project-exclusively)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+	("C-x t 1"   . treemacs-delete-other-windows)
+	("C-x t t"   . treemacs)
+	("C-x t B"   . treemacs-bookmark)
+	("C-x t C-t" . treemacs-find-file)
+	("C-x t M-t" . treemacs-find-tag)))
 
 (use-package lsp-treemacs
   :after lsp)
@@ -519,9 +533,9 @@
    (org-mode . company-mode)
    (org-roam-mode . company-mode))
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+	      ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+	("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 2)
   (company-idle-delay 0.25)
@@ -587,16 +601,16 @@
   :mode ("\\.rs\\'" . rustic-mode)
   :config
   (setq rustic-lsp-client 'lsp-mode
-        rustic-lsp-server 'rust-analyzer
-        rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
+	rustic-lsp-server 'rust-analyzer
+	rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
 
 
 (use-package lsp-python-ms
   :straight t
   :init (setq lsp-python-ms-auto-install-server t)
   :hook (python-mode . (lambda ()
-                          (require 'lsp-python-ms)
-                          (lsp-deferred))))  ; or lsp-deferred
+			 (require 'lsp-python-ms)
+			 (lsp-deferred))))  ; or lsp-deferred
 
 
 ;; (use-package lsp-pyright
@@ -606,11 +620,11 @@
 ;;                           (lsp-deferred))))  ; or lsp-deferred
 
 (use-package python-mode
-   :straight nil 
-   :hook (python-mode . lsp-deferred)
-   :custom
-   ;; NOTE: Set these if Python 3 is called "python3" on your system!
-   (python-shell-interpreter "python"))
+  :straight nil 
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  (python-shell-interpreter "python"))
 ;;   ;; (dap-python-executable "python3")
 ;;   ;; (dap-python-debugger 'debugpy)
 ;;   ;; :config
@@ -626,11 +640,10 @@
 (setq org-id-link-to-org-use-id t)
 
 (use-package org-roam
-  :straight '(org-roam :host github
-		       :branch "v2"
-		       :repo "org-roam/org-roam")
+  :straight t
   :custom
-  (org-roam-directory "~/Documents/org-notes/")
+  (org-roam-directory (file-truename "~/Documents/org-notes/"))
+  (org-roam-dailies-directory "journals/")
   (org-roam-file-extensions '("org"))
   :bind (:map global-map
 	      (("C-c n l" . org-roam-buffer-toggle)
@@ -640,28 +653,54 @@
 	      (("C-c n i" . org-roam-node-insert))
 	      (("C-c n I" . org-roam-insert-immediate)))
   :config
+  (org-roam-setup) 
   (setq org-roam-auto-replace-fuzzy-links nil)
   (setq org-roam-completion-everywhere t)
   (setq org-roam-prefer-id-links t)
-  (setq org-roam-graph-exclude-matcher '("dailies" "daily"))
+  (setq org-roam-graph-exclude-matcher '("pages" "journals"))
   (setq org-roam-capture-templates
-	'(("d" "default" plain
-	   "%?"
-	   :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-			      "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+filetags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n")
+	'(("d" "default" plain (file "~/Documents/org-notes/templates/plainTemplate.org")
+	   :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n")
 	   :unnarrowed t)))
-  (org-roam-setup) 
+
+;; "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+filetags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n")
+  ;; Org-roam interface
+  ;; backlinks count
+
+  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+    (let* ((count (caar (org-roam-db-query
+			 [:select (funcall count source)
+				  :from links
+				  :where (= dest $s1)
+				  :and (= type "id")]
+			 (org-roam-node-id node)))))
+      (format "[%d]" count)))
+  ;; 1 title tags 
+  (setq org-roam-node-display-template "${backlinkscount:3} ${title:80} ${tags:60}")
   )
 
 (setq org-roam-v2-ack t)
 
 ;; for org-roam-buffer-toggle
 (add-to-list 'display-buffer-alist
-               '(("\\*org-roam\\*"
-                  (display-buffer-in-direction)
-                  (direction . right)
-                  (window-width . 0.23)
-                  (window-height . fit-window-to-buffer))))
+	     '(("\\*org-roam\\*"
+		(display-buffer-in-direction)
+		(direction . right)
+		(window-width . 0.23)
+		(window-height . fit-window-to-buffer))))
+
+
+;; Org transclusion
+(use-package org-transclusion
+  :straight '(org-transclusion :host github
+			       :repo "nobiot/org-transclusion"
+			       :branch "main"
+			       :files ("*.el"))
+  :after org
+  :bind (:map global-map
+	      (("<f12>" . #'org-transclusion-add)
+	       ("C-c n t" . #'org-transclusion-mode)
+	       )))
 
 ;; (use-package org-roam-server
 ;;   :straight t
@@ -701,7 +740,7 @@
 (use-package dashboard
   :straight t
   :config
-  (setq dashboard-banner-logo-title "Sh.........")
+  (setq dashboard-banner-logo-title "  felladog")
   (setq dashboard-startup-banner "~/.emacs.d/pc.png")
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
@@ -724,7 +763,7 @@
  '(company-quickhelp-color-background "#3E4452")
  '(company-quickhelp-color-foreground "#ABB2BF")
  '(custom-safe-themes
-   '("3d54650e34fa27561eb81fc3ceed504970cc553cfd37f46e8a80ec32254a3ec3" "1d44ec8ec6ec6e6be32f2f73edf398620bb721afeed50f75df6b12ccff0fbb15" "f00a605fb19cb258ad7e0d99c007f226f24d767d01bf31f3828ce6688cbdeb22" "e266d44fa3b75406394b979a3addc9b7f202348099cfde69e74ee6432f781336" "06ed754b259cb54c30c658502f843937ff19f8b53597ac28577ec33bb084fa52" "e8567ee21a39c68dbf20e40d29a0f6c1c05681935a41e206f142ab83126153ca" "c95813797eb70f520f9245b349ff087600e2bd211a681c7a5602d039c91a6428" "2ce76d65a813fae8cfee5c207f46f2a256bac69dacbb096051a7a8651aa252b0" "11cc65061e0a5410d6489af42f1d0f0478dbd181a9660f81a692ddc5f948bf34" "733ef3e3ffcca378df65a5b28db91bf1eeb37b04d769eda28c85980a6df5fa37" "d9a28a009cda74d1d53b1fbd050f31af7a1a105aa2d53738e9aa2515908cac4c" "6128465c3d56c2630732d98a3d1c2438c76a2f296f3c795ebda534d62bb8a0e3" "d516f1e3e5504c26b1123caa311476dc66d26d379539d12f9f4ed51f10629df3" "249e100de137f516d56bcf2e98c1e3f9e1e8a6dce50726c974fa6838fbfcec6b" "8f20a5dba51c3032066f9bdd636211c22cd858cbb439bbe8e042016f3d215142" "3c7a784b90f7abebb213869a21e84da462c26a1fda7e5bd0ffebf6ba12dbd041" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "845489fb9f7547e6348a80f942402fc7ac7c6854b0accabc49aeddd8cd4a2bd9" "171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "0466adb5554ea3055d0353d363832446cd8be7b799c39839f387abb631ea0995" "f302eb9c73ead648aecdc1236952b1ceb02a3e7fcd064073fb391c840ef84bca" "e6a2832325900ae153fd88db2111afac2e20e85278368f76f36da1f4d5a8151e" "7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" "1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "1a52e224f2e09af1084db19333eb817c23bceab5e742bf93caacbfea5de6b4f6" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "9687f29504a36c0b6b46cf654117f2f2ab3e73b909476ccb14cdde2bf990fa3e" "2146060448f4fe0838a378045a731e92275cdce1a1f45ddbf8696bb62da59dc5" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" default))
+   '("3c7a784b90f7abebb213869a21e84da462c26a1fda7e5bd0ffebf6ba12dbd041" "5784d048e5a985627520beb8a101561b502a191b52fa401139f4dd20acb07607" "4f1d2476c290eaa5d9ab9d13b60f2c0f1c8fa7703596fa91b235db7f99a9441b" "6b1abd26f3e38be1823bd151a96117b288062c6cde5253823539c6926c3bb178" default))
  '(exwm-floating-border-color "#504945")
  '(fci-rule-color "#e2e4e5")
  '(helm-minibuffer-history-key "M-p")
@@ -735,6 +774,7 @@
  '(objed-cursor-color "#fb4934")
  '(org-agenda-files
    '("~/Documents/org-notes/2021-06-01--02-34-32Z--gan.org" "~/Documents/org-notes/2021-04-10--04-25-11Z--image_processing.org" "~/Documents/org-notes/2021-05-28--12-02-59Z--image_convolution.org" "~/Documents/org-notes/Tasks.org"))
+ '(org-roam-ui-mode t)
  '(package-selected-packages
    '(kaolin-themes company-jedi lsp-pyright seoul256-theme dired-sidebar gruvbox-theme dashboard which-key vterm visual-fill-column use-package undo-tree treemacs-persp treemacs-magit treemacs-evil rustic rust-mode rainbow-delimiters ox-hugo org-roam-server org-roam-bibtex org-download org-bullets one-themes memoize lsp-ui lsp-treemacs lsp-python-ms lsp-ivy ivy-rich ivy-posframe helpful general flycheck evil-numbers evil-nerd-commenter evil-magit evil-collection eterm-256color ein doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode atom-one-dark-theme all-the-icons-dired))
  '(pdf-view-midnight-colors (cons "#f9f9f9" "#282a36"))
@@ -802,3 +842,27 @@
 
 (global-set-key (kbd "C-c C-p") 'mpc-play-at-point)
 ;; song_columns_list_format = "(2)[magenta]{} (23)[red]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+
+;; org  roam ui
+(straight-use-package 'simple-httpd)
+
+(use-package org-roam-ui
+  :straight
+  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  :after org-roam
+  :hook (org-roam . org-roam-ui-mode))
+
+;; ox latex
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+             '("org-plain-latex"
+               "\\documentclass{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+(put 'upcase-region 'disabled nil)
