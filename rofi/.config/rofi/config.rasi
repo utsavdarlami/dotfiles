@@ -1,17 +1,6 @@
 /** Basic config file **/
 
 configuration {
-    show-icons:         true;
-    icon-theme:         "Papirus";
-    width : 100; 
-    padding : 500;
-    lines : 5;
-    hide-scrollbar: true;
-    separator-style: none;
-    show-match : false;
-    bw: 0;
-    color-window: "#D92f343f";
-    color-normal: "#002f343f, #c4cbd4, #002f343f, #002f343f,#abf5f3";
-    color-urgent: "#002f343f, #c4cbd4, #002f343f, #D92f343f,#abf5f3";
-    color-active: "#002f343f, #c4cbd4, #002f343f, #D92f343f,#abf5f3";
+  show-icons:         true;
+  icon-theme:         "Papirus";
 }
