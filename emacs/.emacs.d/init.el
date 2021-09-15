@@ -17,7 +17,7 @@
 ;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
 (set-face-attribute 'default nil :font "mononoki" :height 110)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "mononoki" :height 120 :weight 'regular)
+(set-face-attribute 'fixed-pitch nil :font "mononoki" :height 110 :weight 'regular)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
 
@@ -292,6 +292,7 @@
 
   (setq org-agenda-files
 	'("~/Documents/org-notes/Tasks.org"
+	  "~/Documents/org-notes/work/work_task.org"
 	 ))
   ;; "~/Documents/org-notes/Goals.org"
   ;; setting org for latex 
@@ -639,6 +640,8 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 
+
+
 (use-package org-roam
   :straight t
   :custom
@@ -661,12 +664,21 @@
   (setq org-roam-capture-templates
 	'(("d" "default" plain (file "~/Documents/org-notes/templates/plainTemplate.org")
 	   :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n")
+	   :unnarrowed t)
+
+	  ("w" "work" plain (file "~/Documents/org-notes/templates/workTemplate.org")
+	   :if-new (file+head "work/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n")
 	   :unnarrowed t)))
 
-;; "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+filetags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n")
+	;; "#+title: ${title} \n#+date: %(format-time-string \"%Y-%m-%d %H:%M\") \n#+filetags: no_tags \n#+hugo_tags: no_tags \n#+hugo_categories: uncategorized \n#+STARTUP: latexpreview \n#+STARTUP: content \n#+hugo_auto_set_lastmod: t \n#+hugo_section: posts/unpublished \n#+HUGO_BASE_DIR: ~/Documents/org_blog/ \n#+HUGO_DRAFT: true \n--- \n- References : \n\n- Questions : \n--- \n")
   ;; Org-roam interface
-  ;; backlinks count
+  ;; the directory of the node
+  (cl-defmethod org-roam-node-directories ((node org-roam-node))
+    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
+	(format "(%s)" (car (f-split dirs)))
+      ""))
 
+  ;; backlinks count
   (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
     (let* ((count (caar (org-roam-db-query
 			 [:select (funcall count source)
@@ -676,7 +688,7 @@
 			 (org-roam-node-id node)))))
       (format "[%d]" count)))
   ;; 1 title tags 
-  (setq org-roam-node-display-template "${backlinkscount:3} ${title:80} ${tags:60}")
+  (setq org-roam-node-display-template "${backlinkscount:3} ${directories:10} ${title:80} ${tags:60}")
   )
 
 (setq org-roam-v2-ack t)
@@ -717,7 +729,7 @@
 ;; 	org-roam-server-network-label-truncate-length 60
 ;; 	org-roam-server-network-label-wrap-length 20))
 
-(require 'org-roam-protocol)
+;; (require 'org-roam-protocol)
 
 (use-package org-download
   :after org
@@ -742,6 +754,7 @@
   :config
   (setq dashboard-banner-logo-title "  felladog")
   (setq dashboard-startup-banner "~/.emacs.d/pc.png")
+  (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-projects-backend 'projectile) 
@@ -855,14 +868,25 @@
 ;; ox latex
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
-             '("org-plain-latex"
-               "\\documentclass{article}
-           [NO-DEFAULT-PACKAGES]
-           [PACKAGES]
-           [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+	       '("org-plain-latex"
+		 "\\documentclass{article}
+	   [NO-DEFAULT-PACKAGES]
+	   [PACKAGES]
+	   [EXTRA]"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 (put 'upcase-region 'disabled nil)
+
+
+(use-package deft
+  :config
+  (setq deft-directory "~/Documents/org-notes/" 
+	deft-extensions '("org")
+	deft-recursive t
+	deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
+	deft-use-filename-as-title t)
+  :bind
+  ("C-c n d" . deft))
