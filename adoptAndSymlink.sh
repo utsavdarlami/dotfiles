@@ -33,7 +33,7 @@ if [ $1 = "test" ]; then
     # -nvt for simulation ,, to check if everythings is safely linked
     stow --adopt -nvt ~ $dirlist
     stow --adopt -nvt /etc/ $etc
-    stow * -nvt ~ $dirlist
+    #stow * -nvt ~ $dirlist
 else 
     #stow -vt for actual linking
     stow --adopt -vt ~ $dirlist
