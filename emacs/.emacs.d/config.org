@@ -1,9 +1,9 @@
 #+TITLE: My Emacs Config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+OPTIONS: toc:2   
-
+* TOC :TOC:
 * About
-* Begin
+[[./emacs_screenshot.png]]
 * Package Setup[Straight]
 #+begin_src emacs-lisp
 ;; Package System Setup
@@ -292,7 +292,7 @@
   ;  :after magit)
       
 #+end_src
-* Org
+* Org-Mode
 #+begin_src emacs-lisp
   (defun efs/org-font-setup ()
   ;; Replace list hyphen with dot
