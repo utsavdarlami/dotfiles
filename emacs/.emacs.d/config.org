@@ -1,9 +1,36 @@
 #+TITLE: My Emacs Config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+OPTIONS: toc:2   
-* TOC :TOC:
+* TOC                                                                  :toc:
 * About
 [[./emacs_screenshot.png]]
+* Default
+#+begin_src emacs-lisp
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(tool-bar-mode -1)          ; Disable the toolbar
+(tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)        ; Give some breathing room
+
+(menu-bar-mode -1)            ; Disable the menu bar
+
+;(hs-minor-mode 1)  ;enable hs minor mode hide/show code block
+
+;; Set up the visible bell
+(setq visible-bell t)
+
+;; Font Configuration ----------------------------------------------------------
+;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+(set-face-attribute 'default nil :font "mononoki" :height 110)
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "mononoki" :height 110 :weight 'regular)
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
 * Package Setup[Straight]
 #+begin_src emacs-lisp
 ;; Package System Setup
@@ -45,33 +72,6 @@
 ;; (setq use-package-always-ensure t)
 ;; Package System Setup End 
 
-#+end_src
-* Default
-#+begin_src emacs-lisp
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
-
-(menu-bar-mode -1)            ; Disable the menu bar
-
-;(hs-minor-mode 1)  ;enable hs minor mode hide/show code block
-
-;; Set up the visible bell
-(setq visible-bell t)
-
-;; Font Configuration ----------------------------------------------------------
-;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
-(set-face-attribute 'default nil :font "mononoki" :height 110)
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "mononoki" :height 110 :weight 'regular)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 #+end_src
 * Theme
 #+begin_src emacs-lisp
@@ -517,7 +517,6 @@
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
 
 #+end_src
-
 
 * Lsp
 #+begin_src emacs-lisp
