@@ -1,9 +1,52 @@
 #+TITLE: My Emacs Config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+OPTIONS: toc:2   
-* TOC                                                                  :toc:
+* Tabel of Content                                                      :toc:
+- [[#about][About]]
+  - [[#credits][Credits]]
+- [[#default][Default]]
+- [[#package-setupstraight][Package Setup[Straight]]]
+- [[#theme][Theme]]
+- [[#undo-and-redo][Undo and redo]]
+- [[#ivy][Ivy]]
+- [[#evil][Evil]]
+  - [[#evil-nerd-commenter][Evil Nerd commenter]]
+  - [[#ein][ein]]
+- [[#hydra][Hydra]]
+- [[#projectile][Projectile]]
+- [[#magit][Magit]]
+- [[#org-mode][Org-Mode]]
+  - [[#org-toc][Org Toc]]
+  - [[#org-bullets][Org Bullets]]
+  - [[#automatically-tangle-our-configorg-file-when-we-save-it][Automatically tangle our config.org file when we save it]]
+- [[#lsp][Lsp]]
+- [[#treemacs][Treemacs]]
+- [[#company][Company]]
+- [[#term-vterm][term, vterm]]
+- [[#dired][Dired]]
+  - [[#dired-sidebar][Dired Sidebar]]
+- [[#programming-languages-and-tools][Programming Languages and Tools]]
+  - [[#bash][Bash]]
+  - [[#dockerfile][Dockerfile]]
+  - [[#latexox-latex][Latex/Ox Latex]]
+  - [[#python][Python]]
+  - [[#rust][Rust]]
+  - [[#yaml][YAML]]
+- [[#org-download][Org download]]
+- [[#ox-hugo][Ox-Hugo]]
+- [[#dashboard][Dashboard]]
+- [[#pdf-tools][Pdf-tools]]
+- [[#mpc][MPC]]
+- [[#org-roam][Org roam]]
+  - [[#org-roam-ui][Org roam ui]]
+- [[#org-transclusion][Org transclusion]]
+- [[#deft][Deft]]
+
 * About
 [[./emacs_screenshot.png]]
+** Credits
+- https://github.com/rememberYou/.emacs.d/blob/master/config.org
+- https://github.com/daviwil/emacs-from-scratch
 * Default
 #+begin_src emacs-lisp
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
@@ -229,11 +272,17 @@
   
 #+end_src
 ** Evil Nerd commenter
+:PROPERTIES:
+:ID:       e96ffd91-5d61-4c8e-ab66-3922cff6e68d
+:END:
 #+begin_src emacs-lisp
   (use-package evil-nerd-commenter)
       (define-key evil-normal-state-map (kbd ", c SPC") 'evilnc-comment-or-uncomment-lines)
 #+end_src   
 ** ein  
+:PROPERTIES:
+:ID:       d875c71c-defc-4d24-b0f7-76aa3c500bad
+:END:
 #+begin_src emacs-lisp
   (use-package ein)
   
@@ -469,6 +518,13 @@
 
   (efs/org-font-setup))
 #+end_src    
+** Org Toc
+~toc-org~ will maintain a table of contents at the first heading that has a :TOC: tag.
+#+begin_src emacs-lisp
+(use-package toc-org
+  :after org
+  :hook (org-mode . toc-org-enable))
+#+end_src
 
 ** Org Bullets
 #+begin_src emacs-lisp
@@ -671,12 +727,43 @@
   
 #+end_src    
 ** Dired Sidebar
+:PROPERTIES:
+:ID:       9ba87b46-dca5-408a-aada-44259e95c1fd
+:END:
 #+begin_src emacs-lisp
   (use-package dired-sidebar
     :straight t
     :commands (dired-sidebar-toggle-sidebar))   
  #+end_src       
-* Programming Languages
+* Programming Languages and Tools
+** Bash
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :commands lsp
+  :hook
+  (sh-mode . lsp))
+#+end_src
+
+** Dockerfile
+#+begin_src emacs-lisp
+(use-package dockerfile-mode :delight "δ" :mode "Dockerfile\\'")
+#+end_src
+** Latex/Ox Latex
+#+begin_src emacs-lisp
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("org-plain-latex"
+                 "\\documentclass{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+(put 'upcase-region 'disabled nil)
+#+end_src
 ** Python      
 #+begin_src emacs-lisp
 (use-package lsp-python-ms
@@ -723,6 +810,14 @@
                rustic-lsp-server 'rust-analyzer
                rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
 #+end_src    
+** YAML
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :delight "ψ"
+  :hook (yaml-mode . lsp-deferred)
+  :mode ("\\.\\(yaml\\|yml\\)\\'"))
+#+end_src
+
 * Org download
 #+begin_src emacs-lisp
       
@@ -773,23 +868,6 @@
      ;; use normal isearch
      (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 #+end_src
-* Ox Latex
-#+begin_src emacs-lisp
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-               '("org-plain-latex"
-                 "\\documentclass{article}
-           [NO-DEFAULT-PACKAGES]
-           [PACKAGES]
-           [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-(put 'upcase-region 'disabled nil)
-#+end_src
-
 * MPC
 #+begin_src emacs-lisp
 (setq
@@ -864,6 +942,9 @@
 #+end_src
 
 ** Org roam ui
+:PROPERTIES:
+:ID:       10440275-1f2d-4169-8f4f-325cc9244d8e
+:END:
 #+begin_src emacs-lisp
 (use-package org-roam-ui
     :straight
@@ -872,6 +953,9 @@
     :hook (org-roam . org-roam-ui-mode))
 #+end_src
 *** simple httpd
+:PROPERTIES:
+:ID:       741484fc-8db1-405e-a7a1-4ef75df32818
+:END:
 #+begin_src emacs-lisp
 ;; org  roam ui
 (straight-use-package 'simple-httpd)
