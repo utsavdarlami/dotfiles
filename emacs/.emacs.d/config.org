@@ -1,11 +1,13 @@
 #+TITLE: My Emacs Config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
+#+STARTUP: latexpreview
+#+STARTUP: content
 #+OPTIONS: toc:2   
 * Tabel of Content                                                      :toc:
 - [[#about][About]]
   - [[#credits][Credits]]
 - [[#default][Default]]
-- [[#package-setupstraight][Package Setup[Straight]]]
+- [[#package-setup-straight][Package Setup (Straight)]]
 - [[#theme][Theme]]
 - [[#undo-and-redo][Undo and redo]]
 - [[#ivy][Ivy]]
@@ -41,40 +43,60 @@
   - [[#org-roam-ui][Org roam ui]]
 - [[#org-transclusion][Org transclusion]]
 - [[#deft][Deft]]
+- [[#speed-type][Speed-Type]]
+- [[#bibliography][bibliography]]
+  - [[#ivy-bibtex][ivy-bibtex]]
+  - [[#helm-bibtex][helm-bibtex]]
+  - [[#setting-up][setting up]]
+- [[#org-ref][org ref]]
+- [[#nano-emacs][nano-emacs]]
 
 * About
 [[./emacs_screenshot.png]]
 ** Credits
 - https://github.com/rememberYou/.emacs.d/blob/master/config.org
 - https://github.com/daviwil/emacs-from-scratch
+
 * Default
+:PROPERTIES:
+:ID:       e2499731-187c-492c-8857-5f304137b6fc
+:END:
 #+begin_src emacs-lisp
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
-
-(menu-bar-mode -1)            ; Disable the menu bar
-
-;(hs-minor-mode 1)  ;enable hs minor mode hide/show code block
-
-;; Set up the visible bell
-(setq visible-bell t)
-
-;; Font Configuration ----------------------------------------------------------
-;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
-(set-face-attribute 'default nil :font "mononoki" :height 110)
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "mononoki" :height 110 :weight 'regular)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  
+  (scroll-bar-mode -1)        ; Disable visible scrollbar
+  (tool-bar-mode -1)          ; Disable the toolbar
+  (tooltip-mode -1)           ; Disable tooltips
+  (set-fringe-mode 10)        ; Give some breathing room
+  
+  (menu-bar-mode -1)            ; Disable the menu bar
+  
+  ;(hs-minor-mode 1)  ;enable hs minor mode hide/show code block
+  
+  ;; Set up the visible bell
+  (setq visible-bell t)
+  
+  ;; Font Configuration ----------------------------------------------------------
+  ;(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+  (set-face-attribute 'default nil :font "mononoki" :height 110 :weight 'regular)
+  ;; Set the fixed pitch face
+  (set-face-attribute 'fixed-pitch nil :font "mononoki" :height 110 :weight 'regular)
+  ;; Set the variable pitch face
+  (set-face-attribute 'variable-pitch nil :font "mononoki" :height 110 :weight 'regular)
+  
+  ;; Make ESC quit prompts
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  ;; transparency 
+  ;; (set-frame-parameter (selected-frame) 'alpha '(98 . 94))
 #+end_src
-* Package Setup[Straight]
+
+#+RESULTS:
+: keyboard-escape-quit
+
+* Package Setup (Straight)
+:PROPERTIES:
+:ID:       f9d162e0-3379-48c8-a29f-ac3c534645ec
+:END:
 #+begin_src emacs-lisp
 ;; Package System Setup
 ;; straight.el
@@ -117,19 +139,28 @@
 
 #+end_src
 * Theme
+:PROPERTIES:
+:ID:       ff2fe024-efbc-421f-9e37-5efa177f06ac
+:END:
 #+begin_src emacs-lisp
   ;; theme
   (straight-use-package 'kaolin-themes)
-  ;; (straight-use-package 'doom-themes)
+  ;;(straight-use-package 'doom-themes)
   ;;; dark variants
   ;; Range:   233 (darkest) ~ 239 (lightest)
   ;; Default: 237
+  ;; (straight-use-package 'atom-one-dark-theme)
   ;; (load-theme 'atom-one-dark t)
   ;; (load-theme 'gruvbox-dark-medium t)
-  (load-theme 'kaolin-light t)
+  ;; (load-theme 'kaolin-light t)
+  (load-theme 'kaolin-temple t)
+  ;; (load-theme 'nano t)
   ;; (load-theme 'doom-gruvbox t)
 #+end_src
 * Undo and redo
+:PROPERTIES:
+:ID:       cf8cf0f3-ef5d-4780-92fb-7bde1db727c9
+:END:
 #+begin_src emacs-lisp
   (column-number-mode)
   (global-display-line-numbers-mode t)
@@ -156,7 +187,7 @@
   (use-package doom-modeline
     :straight t
     :init (doom-modeline-mode 1)
-    :custom ((doom-modeline-height 15)))
+    :custom ((doom-modeline-height 5)))
   
   (use-package all-the-icons)
   
@@ -205,6 +236,9 @@
       "tt" '(counsel-load-theme :which-key "choose theme")))
 #+end_src
 * Ivy
+:PROPERTIES:
+:ID:       71673541-eec1-4e8f-8d4d-825f2d323559
+:END:
 #+begin_src emacs-lisp
 (use-package ivy
   :diminish
@@ -237,6 +271,9 @@
      (ivy-posframe-mode 1))
 #+end_src
 * Evil
+:PROPERTIES:
+:ID:       2825ccfa-fb23-4fff-b903-44f0f810d070
+:END:
 #+begin_src emacs-lisp
   (use-package evil
     :init
@@ -290,8 +327,6 @@
   (define-key evil-normal-state-map (kbd ", a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd ", x") 'evil-numbers/dec-at-pt)
   
-  (set-frame-parameter (selected-frame) 'alpha '(98 . 94))
-  
   ;;(require 'evil-numbers)
   ;;(global-set-key (kbd "c-c +") 'evil-numbers/inc-at-pt)
   ;;(global-set-key (kbd "c-c -") 'evil-numbers/dec-at-pt)
@@ -300,6 +335,9 @@
   
 #+end_src
 * Hydra
+:PROPERTIES:
+:ID:       f39a44cf-c5aa-4856-823e-31dddc997020
+:END:
 #+begin_src emacs-lisp
 (use-package hydra)
 
@@ -314,6 +352,9 @@
 #+end_src
 
 * Projectile
+:PROPERTIES:
+:ID:       a01dafeb-011b-45b6-8b8e-91df3dc0edae
+:END:
 #+begin_src emacs-lisp
   (use-package projectile
     :diminish projectile-mode
@@ -332,6 +373,9 @@
   
 #+end_src
 * Magit
+:PROPERTIES:
+:ID:       336e2f07-b992-48cf-a1b3-b4dec9866c85
+:END:
 #+begin_src emacs-lisp
   (use-package magit
     :custom
@@ -342,6 +386,9 @@
       
 #+end_src
 * Org-Mode
+:PROPERTIES:
+:ID:       24f08993-1b27-4401-8f00-e8ffda3ef937
+:END:
 #+begin_src emacs-lisp
   (defun efs/org-font-setup ()
   ;; Replace list hyphen with dot
@@ -519,6 +566,9 @@
   (efs/org-font-setup))
 #+end_src    
 ** Org Toc
+:PROPERTIES:
+:ID:       d57477f8-f796-4e94-9a50-adeb9e4dd563
+:END:
 ~toc-org~ will maintain a table of contents at the first heading that has a :TOC: tag.
 #+begin_src emacs-lisp
 (use-package toc-org
@@ -527,6 +577,9 @@
 #+end_src
 
 ** Org Bullets
+:PROPERTIES:
+:ID:       cb4706da-80de-45bb-81d3-cb07b2298746
+:END:
 #+begin_src emacs-lisp
   (use-package org-bullets
     :after org
@@ -559,6 +612,9 @@
 #+end_src
 
 ** Automatically tangle our config.org file when we save it
+:PROPERTIES:
+:ID:       b884a4cb-5526-49ff-b373-4439bee75f13
+:END:
 
 #+begin_src emacs-lisp
 
@@ -575,6 +631,9 @@
 #+end_src
 
 * Lsp
+:PROPERTIES:
+:ID:       f62daf5d-c380-4923-8e22-9447fd1c0f4a
+:END:
 #+begin_src emacs-lisp
   (defun efs/lsp-mode-setup ()
     (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
@@ -608,6 +667,9 @@
 #+end_src
 
 * Treemacs
+:PROPERTIES:
+:ID:       b251d95e-0dba-4f59-8174-5a95b9730693
+:END:
 #+begin_src emacs-lisp
    (use-package treemacs
      :straight t
@@ -652,6 +714,9 @@
 #+end_src
 
 * Company
+:PROPERTIES:
+:ID:       7cb75754-a89d-4513-8fac-4d0ef48a8520
+:END:
 
 #+begin_src emacs-lisp
 
@@ -680,6 +745,9 @@
 
 #+end_src
 * term, vterm  
+:PROPERTIES:
+:ID:       fe780876-029d-43be-ae00-137dec41f739
+:END:
 
 #+begin_src emacs-lisp
   (use-package term
@@ -703,6 +771,9 @@
 #+end_src
 
 * Dired
+:PROPERTIES:
+:ID:       3ddf9839-e97c-40de-bfce-27c74af2d531
+:END:
 #+begin_src emacs-lisp
  (use-package dired
    :straight nil
@@ -737,6 +808,9 @@
  #+end_src       
 * Programming Languages and Tools
 ** Bash
+:PROPERTIES:
+:ID:       5d4d442a-fb69-499a-860f-2e6f19af501f
+:END:
 #+begin_src emacs-lisp
 (use-package lsp-mode
   :commands lsp
@@ -745,10 +819,16 @@
 #+end_src
 
 ** Dockerfile
+:PROPERTIES:
+:ID:       d1eeeac6-cd2b-4123-bc68-a15a100948b7
+:END:
 #+begin_src emacs-lisp
 (use-package dockerfile-mode :delight "δ" :mode "Dockerfile\\'")
 #+end_src
 ** Latex/Ox Latex
+:PROPERTIES:
+:ID:       33e56579-cfa4-4c84-9fcc-157098a9550d
+:END:
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
@@ -765,6 +845,9 @@
 (put 'upcase-region 'disabled nil)
 #+end_src
 ** Python      
+:PROPERTIES:
+:ID:       619497b5-82ba-46e1-b32f-9bad05a8d06c
+:END:
 #+begin_src emacs-lisp
 (use-package lsp-python-ms
   :straight t
@@ -793,7 +876,8 @@
       
 (use-package pyvenv
   :config
-  (setenv "WORKON_HOME" "~/anaconda3/envs")
+  (setenv "WORKON_HOME" "~/anaconda3/envs") 
+  ;; (setenv "WORKON_HOME" "~/anaconda3/envs")
   (pyvenv-mode 1)
   (pyvenv-tracking-mode 1))
 
@@ -802,6 +886,9 @@
       
 #+end_src    
 ** Rust    
+:PROPERTIES:
+:ID:       5bef5bd6-a5bc-4306-a669-55aaa417bb7b
+:END:
 #+begin_src emacs-lisp
        (use-package rustic
          :mode ("\\.rs\\'" . rustic-mode)
@@ -811,6 +898,9 @@
                rustic-analyzer-command '("~/.local/bin/rust-analyzer")))
 #+end_src    
 ** YAML
+:PROPERTIES:
+:ID:       d11b4716-c065-4337-adb3-7fc0c47bca07
+:END:
 #+begin_src emacs-lisp
 (use-package yaml-mode
   :delight "ψ"
@@ -819,6 +909,9 @@
 #+end_src
 
 * Org download
+:PROPERTIES:
+:ID:       64ddaafe-2bfd-4252-8f39-54a1b10fcade
+:END:
 #+begin_src emacs-lisp
       
 (use-package org-download
@@ -829,12 +922,18 @@
          ("s-y" . org-download-yank))))
 #+end_src
 * Ox-Hugo
+:PROPERTIES:
+:ID:       c2210211-7c1c-47a5-8665-a15f131b0c44
+:END:
 #+begin_src emacs-lisp
 (use-package ox-hugo
     :straight t
     :after ox)
 #+end_src
 * Dashboard
+:PROPERTIES:
+:ID:       2626a10c-6f3e-4fb5-a192-248866bb6c2c
+:END:
 #+begin_src emacs-lisp
   (use-package dashboard
     :straight t
@@ -854,6 +953,9 @@
     (dashboard-setup-startup-hook))
   #+end_src
 * Pdf-tools
+:PROPERTIES:
+:ID:       1a31129d-6ac0-4fcf-85bc-a8bcb9cfd003
+:END:
 #+begin_src emacs-lisp
   (use-package pdf-tools
      ;; :pin manual ;; manually update
@@ -869,6 +971,9 @@
      (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 #+end_src
 * MPC
+:PROPERTIES:
+:ID:       2f516bfa-363b-4ab0-988c-ae2d05e780bb
+:END:
 #+begin_src emacs-lisp
 (setq
  mpc-browser-tags '(Filename)
@@ -880,6 +985,10 @@
 #+end_src
 
 * Org roam 
+:PROPERTIES:
+:ID:       f65f214d-1bb3-4b28-9d74-6304f89ddadc
+:END:
+
 #+begin_src emacs-lisp
 (use-package org-roam
    :straight t
@@ -952,6 +1061,7 @@
     :after org-roam
     :hook (org-roam . org-roam-ui-mode))
 #+end_src
+
 *** simple httpd
 :PROPERTIES:
 :ID:       741484fc-8db1-405e-a7a1-4ef75df32818
@@ -961,6 +1071,9 @@
 (straight-use-package 'simple-httpd)
 #+end_src
 * Org transclusion
+:PROPERTIES:
+:ID:       1739d607-0384-48fc-a075-6889b18e7d3c
+:END:
 #+begin_src emacs-lisp
 (use-package org-transclusion
   :straight '(org-transclusion :host github
@@ -975,6 +1088,9 @@
 #+end_src
 
 * [[https://github.com/jrblevin/deft][Deft]]
+:PROPERTIES:
+:ID:       eab8071e-7609-47d7-aebc-56a3a74153b7
+:END:
 #+begin_src emacs-lisp
 (use-package deft
   :config
@@ -985,4 +1101,71 @@
 	deft-use-filename-as-title t)
   :bind
   ("C-c n d" . deft))
+#+end_src
+* [[https://github.com/parkouss/speed-type/][Speed-Type]]
+:PROPERTIES:
+:ID:       0a8c764e-696a-4c0f-b110-4e8546f6ef12
+:END:
+#+begin_src emacs-lisp
+(straight-use-package 'speed-type)
+#+end_src
+
+Executing M-x speed-type-text will start the typing exercise.
+
+* bibliography
+** ivy-bibtex
+:PROPERTIES:
+:ID:       8fe71e76-0567-4411-9474-e8bfcea3864f
+:END:
+#+begin_src emacs-lisp
+  (straight-use-package 'ivy-bibtex)
+#+end_src
+
+#+RESULTS:
+: t
+
+** helm-bibtex
+:PROPERTIES:
+:ID:       bb1011a3-834e-4b08-8130-d7641d217615
+:END:
+#+begin_src emacs-lisp
+(straight-use-package 'helm-bibtex)
+#+end_src
+** setting up
+:PROPERTIES:
+:ID:       e243fd80-56dd-40dd-ba0f-2da3903c5579
+:END:
+#+begin_src emacs-lisp
+  (setq bibtex-completion-bibliography
+        '("~/Documents/org-notes/bib/bibtex_1.bib"))
+  
+    (setq bibtex-completion-library-path '("~/Desktop/ML/papers"))
+    
+#+end_src
+
+#+RESULTS:
+| ~/Desktop/ML/papers |
+
+* org ref
+:PROPERTIES:
+:ID:       3f04ebcf-bbad-4ce4-85ae-83b6061a335e
+:END:
+#+begin_src emacs-lisp
+(straight-use-package 'org-ref)
+#+end_src
+
+* [[https://github.com/rougier/nano-emacs][nano-emacs]]
+:PROPERTIES:
+:ID:       9f5b616e-a726-45b2-ad7f-5c14a3225754
+:END:
+#+begin_src emacs-lisp
+  (straight-use-package
+        '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+  
+  ;; (require 'nano)
+  ;; (require 'nano-faces)
+  (setq nano-font-family-monospaced "mononoki")
+  (setq nano-font-family-proportional nil)
+  (setq nano-font-size 11)
+;; (require 'nano-agenda)
 #+end_src

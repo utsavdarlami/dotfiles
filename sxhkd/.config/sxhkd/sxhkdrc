@@ -130,11 +130,11 @@ XF86MonBrightnessDown
 
 # # Media player controls
 XF86AudioPlay 
-    playerctl play-pause
+    mpc toggle 
 XF86AudioNext 
-    playerctl next
+    mpc next
 XF86AudioPrev 
-    playerctl previous
+    mpc prev
 XF86AudioStop 
     playerctl stop
 
@@ -151,6 +151,8 @@ XF86AudioMute
 #Start Firefox
 super + shift + f
 	firefox
+super + shift + w
+	firefox -P work_docs
 # thunar
 super + e
     thunar
