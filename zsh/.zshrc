@@ -104,7 +104,6 @@ fi
 #alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
 #alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
-alias matrix='source ~/anaconda3/bin/activate && conda activate matrix'
 alias deep='source ~/anaconda3/bin/activate && conda activate deep'
 alias vim='nvim'
 alias activatePip='source .venv/bin/activate'
@@ -145,7 +144,7 @@ compinit
 #neofetch 
 #
 #pfetch 
-PF_INFO="ascii title os host kernel shell wm editor uptime memory" PF_ASCII="kiss" pfetch
+PF_INFO="ascii title os host kernel shell wm uptime memory" PF_ASCII="kiss" pfetch
 #/home/felladog/Desktop/Workspace/grepy/gre2.py
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

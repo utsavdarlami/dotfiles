@@ -3,7 +3,6 @@ dirlist="
             alacritty 
             bash 
             bspwm 
-            emacs
             i3 
             lock 
             mpd 
