@@ -106,6 +106,7 @@ fi
 alias mlenv='source ~/anaconda3/bin/activate'
 alias deep='source ~/anaconda3/bin/activate && conda activate deep'
 alias vim='nvim'
+alias tmacs='emacs -nw'
 alias activatePip='source .venv/bin/activate'
 alias music="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
 alias dotfiles="cd ~/Desktop/dotfiles"
@@ -144,8 +145,8 @@ compinit
 #neofetch 
 #
 #pfetch 
-PF_INFO="ascii title os host kernel shell wm uptime memory" PF_ASCII="kiss" pfetch
-#/home/felladog/Desktop/Workspace/grepy/gre2.py
+#PF_INFO="ascii title os host kernel shell wm uptime memory" PF_ASCII="kiss" pfetch
+/home/felladog/Desktop/Workspace/grepy/gre2.py
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PIPENV_VENV_IN_PROJECT=True
@@ -191,3 +192,5 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 eval "$(pyenv virtualenv-init -)"
+
+export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig

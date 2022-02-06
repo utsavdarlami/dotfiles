@@ -13,9 +13,10 @@ feh --bg-scale ~/Pictures/Wallpaper/wallace.png
 #$HOME/.config/polybar/launch.sh &
 $HOME/.config/polybar/shades/launch.sh &
 
-#bspc monitor eDP-1-1 -s DP-1-1
+#bspc monitor DP0 -s ePD1
 #bspc monitor \^1 -d 1 2 3 4 9 6 7 8
-#bspc monitor \^2 -d 5
+#bspc monitor \^1 -d 5
+#bspc monitor \^1 -d 1 2 3 4 9 6 7 8
 bspc monitor -d 1 2 3 4 9 6 7 8
 
 bspc config border_width         1
@@ -33,7 +34,7 @@ bspc config urgent_border_color "#f54e4e"
 
 bspc rule -a discord desktop='^8' state=tiled follow=on
 bspc rule -a firefox desktop='^3' follow=on
-bspc rule -a vlc desktop='^4' follow=on
+bspc rule -a vlc desktop='^3' follow=on
 bspc rule -a obsidian desktop='^7' follow=on
-bspc rule -a Spotify desktop=^5 follow=on
+bspc rule -a Spotify desktop='^5' follow=on
 bspc rule -a Emacs state=tiled follow=on
