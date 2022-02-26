@@ -101,12 +101,10 @@ fi
 # Example aliases
 #
 # alias for virtual env
-#alias flaskenv='source Desktop/Workspace/VirtualEnv/flask_env/bin/activate'
-#alias djangoenv='source ~/Desktop/Workspace/VirtualEnv/django_env/bin/activate'
 alias mlenv='source ~/anaconda3/bin/activate'
 alias deep='source ~/anaconda3/bin/activate && conda activate deep'
 alias vim='nvim'
-alias tmacs='emacs -nw'
+alias mapkeyboard='xmodmap ~/.Xmodmap'
 alias activatePip='source .venv/bin/activate'
 alias music="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
 alias dotfiles="cd ~/Desktop/dotfiles"
