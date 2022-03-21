@@ -158,7 +158,7 @@ super + e
     thunar
 # emacs
 super + shift + m 
-    emacs 
+    emacsclient -nc
 # launcher rofi
 super + O
     bash ~/.config/rofi/launchers/text/launcher.sh
