@@ -3,7 +3,7 @@
 sxhkd &
 picom -f & 
 nm-applet &
-xfce4-power-manager&
+xfce4-power-manager &
 mpd &
 #xinput disable 14 &
 
@@ -35,5 +35,5 @@ bspc rule -a discord desktop='^8' state=tiled follow=on
 bspc rule -a firefox desktop='^3' follow=on
 bspc rule -a vlc desktop='^4' follow=on
 bspc rule -a obsidian desktop='^7' follow=on
-bspc rule -a Spotify desktop=^5 follow=on
+bspc rule -a Spotify desktop='^5' follow=on
 bspc rule -a Emacs state=tiled follow=on
