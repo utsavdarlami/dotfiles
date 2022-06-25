@@ -19,7 +19,7 @@ window:
   # If both are `0`, this setting is ignored.
   dimensions:
     columns: 95
-    lines: 18
+    lines: 18 
 
   # Window position (changes require restart)
   #
@@ -35,41 +35,48 @@ window:
   padding:
     x: 8
     y: 8
-    # Spread additional padding evenly around the terminal content.
-    #dynamic_padding: false
-    # Window decorations
-    #
-    # Values for `decorations`:
-    #     - full: Borders and title bar
-    #     - none: Neither borders nor title bar
-    #
-    # Values for `decorations` (macOS only):
-    #     - transparent: Title bar, transparent background and title bar buttons
-    #     - buttonless: Title bar, transparent background, but no title bar buttons
-    #decorations: full
-    # Startup Mode (changes require restart)
-    #
-    # Values for `startup_mode`:
-    #   - Windowed
-    #   - Maximized
-    #   - Fullscreen
-    #
-    # Values for `startup_mode` (macOS only):
-    #   - SimpleFullscreen
-    #startup_mode: Windowed
-    # Window title
-    #title: Alacritty
-    # Window class (Linux/BSD only):
-    #class:
+
+  # Spread additional padding evenly around the terminal content.
+  #dynamic_padding: false
+
+  # Window decorations
+  #
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - transparent: Title bar, transparent background and title bar buttons
+  #     - buttonless: Title bar, transparent background, but no title bar buttons
+  #decorations: full
+
+  # Startup Mode (changes require restart)
+  #
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
+  #
+  # Values for `startup_mode` (macOS only):
+  #   - SimpleFullscreen
+  #startup_mode: Windowed
+
+  # Window title
+  #title: Alacritty
+
+  # Window class (Linux/BSD only):
+  #class:
     # Application instance name
     #instance: Alacritty
     # General application class
     #general: Alacritty
+
   # GTK theme variant (Linux/BSD only)
   #
   # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
   # Set this to `None` to use the default theme variant.
   #gtk_theme_variant: None
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -100,12 +107,14 @@ font:
   #offset:
   #  x: 0
   #  y: 0
+
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
   #glyph_offset:
   #  x: 0
   #  y: 0
+
   # Thin stroke font rendering (macOS only)
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
@@ -124,36 +133,53 @@ font:
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
+
 # Colors (Tomorrow Night Bright)
 colors:
   # Default colors
   primary:
-    # hard contrast: background = '#1d2021'
-    background: '#282828'
-    # soft contrast: background = '#32302f'
-    foreground: '#ebdbb2'
+    #background:  '#2a2a2e'
+    background: '#1F1F1F'
+    foreground: '#F4DEF4'
+
+  # Cursor colors
+  cursor:
+    text  : '#F4DEF4'
+    cursor: '#afbfbf'
+
+  #  cursor: '#ffffff'
+
+  # Selection colors
+  #
+  # Colors which should be used to draw the selection area. If selection
+  # background is unset, selection color will be the inverse of the cell colors.
+  # If only text is unset the cell text color will remain the same.
+  #selection:
+  #  text: '#eaeaea'
+  #  background: '#404040'
 
   # Normal colors
   normal:
-    black: '#282828'
-    red: '#cc241d'
-    green: '#98971a'
-    yellow: '#d79921'
-    blue: '#458588'
-    magenta: '#b16286'
-    cyan: '#689d6a'
-    white: '#a89984'
+    black:   '#3B4252' 
+    red:     '#cc6666'
+    green:   '#b5bd68'
+    yellow:  '#f0c674'
+    blue:    '#81a2be'
+    magenta: '#b294bb'
+    cyan:    '#80bec9'
+    white:   '#c5c8c6'
 
   # Bright colors
   bright:
-    black: '#928374'
-    red: '#fb4934'
-    green: '#b8bb26'
-    yellow: '#fabd2f'
-    blue: '#83a598'
-    magenta: '#d3869b'
-    cyan: '#8ec07c'
-    white: '#ebdbb2'
+    black:   '#cc6666'
+    red:     '#969896'
+    green:   '#b1bd48'
+    yellow:  '#f0c674'
+    blue:    '#67eae1'
+    magenta: '#b294bb'
+    cyan:    '#8fafca'
+    white:   '#ffffff'
+
 
 # Visual Bell
 #
@@ -180,19 +206,26 @@ colors:
 #  animation: EaseOutExpo
 #  duration: 0
 #  color: '#ffffff'
+
 # Background opacity
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
+
 #background_opacity: 0.97
 opacity: 0.98
 
+
+
 #selection:
-#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-# When set to `true`, selected text will be copied to the primary clipboard.
-#save_to_clipboard: false
+  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  #save_to_clipboard: false
+
 # Allow terminal applications to change Alacritty's window title.
 #dynamic_title: true
+
 cursor:
   # Cursor style
   #
@@ -200,14 +233,15 @@ cursor:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
-  style: Beam
+  style: Beam 
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
-  unfocused_hollow: false
+  unfocused_hollow: false 
 
 # Live config reload (changes require restart)
 #live_config_reload: true
+
 # Shell
 #
 # You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
@@ -221,11 +255,13 @@ cursor:
 #  program: /bin/bash
 #  args:
 #    - --login
+
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
 #working_directory: None
+
 # WinPTY backend (Windows only)
 #
 # Alacritty defaults to using the newer ConPTY backend if it is available,
@@ -235,8 +271,10 @@ cursor:
 # Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
 # even if the ConPTY backend is available.
 #winpty_backend: false
+
 # Send ESC (\x1wwb) before characters when alt is pressed.
 #alt_send_esc: true
+
 mouse:
   # Click settings
   #
@@ -261,7 +299,7 @@ mouse:
     #   - (Linux/BSD) xdg-open
     #   - (Windows) explorer
     launcher:
-      program: firefox
+      program: firefox 
       args: []
 
     # URL modifiers
@@ -294,6 +332,7 @@ mouse:
 # - `mods` (see key bindings)
 #mouse_bindings:
 #  - { mouse: Middle, action: PasteSelection }
+
 # Key bindings
 #
 # Key bindings areCtrlspecified as a list of objects. For example, this is the
@@ -399,39 +438,21 @@ mouse:
 # at once.
 key_bindings:
   # (Windows, Linux, and BSD only)
-  - { key: N, mods: Control|Shift, action: SpawnNewInstance }
-  - { key: V, mods: Control|Shift, action: Paste }
-  - { key: C, mods: Control|Shift, action: Copy }
-  - { key: Insert, mods: Shift, action: PasteSelection }
-  - { key: Equals, mods: Control, action: IncreaseFontSize }
-  - { key: Minus, mods: Control, action: DecreaseFontSize }
-  - {
-      key: PageUp,
-      mods: Shift,
-      action: ScrollPageUp,
-      mode: ~Alt
-    }
-  - {
-      key: PageDown,
-      mods: Shift,
-      action: ScrollPageDown,
-      mode: ~Alt
-    }
-  - {
-      key: Home,
-      mods: Shift,
-      action: ScrollToTop,
-      mode: ~Alt
-    }
-  - {
-      key: End,
-      mods: Shift,
-      action: ScrollToBottom,
-      mode: ~Alt
-    }
-  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: N,           mods: Control|Shift,         action: SpawnNewInstance }
+  - { key: V,           mods: Control|Shift,       action: Paste            }
+  - { key: C,           mods: Control|Shift,       action: Copy             }
+  - { key: Insert,      mods: Shift,               action: PasteSelection   }
+  - { key: Equals,      mods: Control,             action: IncreaseFontSize }
+  - { key: Minus,       mods: Control,             action: DecreaseFontSize }
+  - { key: PageUp,      mods: Shift,              action: ScrollPageUp,   mode: ~Alt       }
+  - { key: PageDown,    mods: Shift,              action: ScrollPageDown, mode: ~Alt       }
+  - { key: Home,        mods: Shift,              action: ScrollToTop,    mode: ~Alt       }
+  - { key: End,         mods: Shift,              action: ScrollToBottom, mode: ~Alt       }
+  - { key: Key0,        mods: Control,             action: ResetFontSize    }
+
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
+
   # (macOS only)
   #- { key: Key0,   mods: Command,         action: ResetFontSize    }
   #- { key: Equals, mods: Command,         action: IncreaseFontSize }
@@ -446,25 +467,29 @@ key_bindings:
   #- { key: Q,      mods: Command,         action: Quit             }
   #- { key: W,      mods: Command,         action: Quit             }
   #- { key: F,      mods: Command|Control, action: ToggleFullscreen }
+
   #- { key: Paste,                    action: Paste                            }
   #- { key: Copy,                     action: Copy                             }
   #- { key: L,         mods: Control, action: ClearLogNotice                   }
   #- { key: L,         mods: Control, chars: "\x0c"                            }
-  #Vim 
-  #" Tab Navigations 
+   #Vim 
+   #" Tab Navigations 
   #- { key: H,        mods: Alt, chars: "\x1b:tabp\x0d" }
   #- { key: L,        mods: Alt, chars: "\x1b:tabn\x0d" }
-  #" Neomake
+   #" Neomake
   #- { key: J,        mods: Alt, chars: "\x1b:lnext\x0d" }
   #- { key: K,        mods: Alt, chars: "\x1b:lprev\x0d" }
   #- { key: O,        mods: Alt, chars: "\x1b:lopen\x0d" }
-  #" Selection
+   #" Selection
   #- { key: A,        mods: Alt, chars: "\x1bggVG" }
-  #debug:
+
+#debug:
   # Display the time it takes to redraw each frame.
   #render_timer: false
+
   # Keep the log file after quitting Alacritty.
   #persistent_logging: false
+
   # Log level
   #
   # Values for `log_level`:
@@ -475,6 +500,6 @@ key_bindings:
   #   - Debug
   #   - Trace
   #log_level: Warn
+
   # Print all received window events.
   #print_events: false
-theme: Gruvbox-Dark
