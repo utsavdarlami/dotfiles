@@ -274,6 +274,11 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " (neomake, ...)
 set shell=/bin/bash 
 
+""" show cursor pos
+"set ruler
+
+set cursorline
+
 " Ability to add python breakpoints
 " (I use ipdb, but you can change it to whatever tool you use for debugging)
 au FileType python map <silent> <leader>b Oimport ipdb; ipdb.set_trace()<esc>
