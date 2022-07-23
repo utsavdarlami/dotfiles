@@ -3,7 +3,6 @@ dirlist="
             alacritty 
             bash 
             bspwm 
-            i3 
             lock 
             mpd 
             mozilla
@@ -19,7 +18,6 @@ dirlist="
             Xresources
             Xmodmap
             zsh 
-            zathura
         "
 etc="
         X11
