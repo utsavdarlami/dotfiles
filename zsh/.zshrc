@@ -103,7 +103,8 @@ fi
 # alias for virtual env
 alias mlenv='source ~/anaconda3/bin/activate'
 alias deep='source ~/anaconda3/bin/activate && conda activate deep'
-alias vim='nvim'
+alias vim='vi'
+alias em="emacsclient -nw"
 alias mapkeyboard='xmodmap ~/.Xmodmap'
 alias activatePip='source .venv/bin/activate'
 alias music="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
@@ -184,11 +185,13 @@ load_nvm(){
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
-# eval "$(pyenv init -)"
-eval "$(pyenv init --path)"
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
 eval "$(pyenv virtualenv-init -)"
 
 export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig

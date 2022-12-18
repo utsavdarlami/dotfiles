@@ -88,11 +88,11 @@ Plug 'vimwiki/vimwiki'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Async autocompletion
-if using_neovim && vim_plug_just_installed
-    Plug 'Shougo/deoplete.nvim', {'do': ':autocmd VimEnter * UpdateRemotePlugins'}
-else
-    Plug 'Shougo/deoplete.nvim'
-endif
+"if using_neovim && vim_plug_just_installed
+    "Plug 'Shougo/deoplete.nvim', {'do': ':autocmd VimEnter * UpdateRemotePlugins'}
+"else
+    "Plug 'Shougo/deoplete.nvim'
+"endif
 
 "Pipenv
 Plug 'plytophogy/vim-virtualenv'
@@ -379,13 +379,13 @@ nmap <C-b> :Buffers<CR>
 " Deoplete -----------------------------
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_ignore_case = 1
 "let g:deoplete#enable_smart_case = 1
-call deoplete#custom#buffer_filter('smart_case',v:true)
+"call deoplete#custom#buffer_filter('smart_case',v:true)
 " complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
+"let g:context_filetype#same_filetypes = {}
+"let g:context_filetype#same_filetypes._ = '_'
 
 " Jedi-vim ------------------------------
 
